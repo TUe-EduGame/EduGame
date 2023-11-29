@@ -13,12 +13,41 @@ MonoBehaviour:
   m_Name: TEST
   m_EditorClassIdentifier: 
   lines:
-  - text: 
-    type: 
-    startsEvent: 0
-    eventToStart: 
+  - text: Hello! My name is NPC1!
     hasOptions: 0
     options:
-      text: 
+    - text: 
       nextDialogue: {fileID: 0}
-    canExit: 0
+    - text: 
+      nextDialogue: {fileID: 0}
+    - text: 
+      nextDialogue: {fileID: 0}
+  - text: I am the main character of this story!
+    hasOptions: 0
+    options:
+    - text: 
+      nextDialogue: {fileID: 0}
+    - text: 
+      nextDialogue: {fileID: 0}
+    - text: 
+      nextDialogue: {fileID: 0}
+  - text: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa
+    hasOptions: 0
+    options:
+    - text: 
+      nextDialogue: {fileID: 0}
+    - text: 
+      nextDialogue: {fileID: 0}
+    - text: 
+      nextDialogue: {fileID: 0}
+  - text: How are you doing?
+    hasOptions: 1
+    options:
+    - text: 
+      nextDialogue: {fileID: 0}
+    - text: 
+      nextDialogue: {fileID: 0}
+    - text: 
+      nextDialogue: {fileID: 0}
+  nextDialogue: {fileID: 0}
+  canExit: 0

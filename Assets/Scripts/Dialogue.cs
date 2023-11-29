@@ -7,22 +7,22 @@ using UnityEngine;
 public class Dialogue : ScriptableObject
 {
     public Line[] lines;
+    public Dialogue nextDialogue;
+    public bool canExit = false;
+    // public bool startsEvent;
+    // public string eventToStart;
 }
 
 [System.Serializable]
 public class Line {
     [TextArea]
     public string text;
-    public string type;
-    public bool startsEvent;
-    public string eventToStart;
     public bool hasOptions;
-    public Options options;
-    public bool canExit;
+    public Option[] options;
 }
 
 [System.Serializable]
-public class Options {
+public class Option {
     public string text;
     public Dialogue nextDialogue;
 }

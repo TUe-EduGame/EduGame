@@ -7,40 +7,73 @@ using System;
 
 public class DialogueUI : MonoBehaviour
 {
-    NPC npc;
-    TMP_Text nameField;
-    TMP_Text dialogueField;
-    Button nextButton;
-    TMP_Text nextButtonTMPro;
+    private NPC npc;
+    private Dialogue dialogue;
 
-    void Awake() {
-        nameField = transform.GetChild(1).GetComponent<TMP_Text>();
-        nextButton = transform.GetChild(2).GetComponent<Button>();
-        dialogueField = transform.GetChild(3).GetComponent<TMP_Text>();
-        nextButtonTMPro = nextButton.transform.GetChild(0).GetComponent<TMP_Text>();
+    [SerializeField] private TMP_Text nameField;
+    [SerializeField] private TMP_Text dialogueField;
+    [SerializeField] private Button nextButton;
+    [SerializeField] private Button exitButton;
+    [SerializeField] private Image leftNPCImage;
+    [SerializeField] private Image rightNPCImage;
+    [SerializeField] private GameObject optionsPanel;
+
+    void Awake()
+    {
+
+    }
+
+    private void DisplayLine(int index)
+    {
+        bool hasOptions = dialogue.lines[index].hasOptions;
+        
+        optionsPanel.SetActive(hasOptions);
+        nextButton.gameObject.SetActive(!hasOptions);
+        dialogueField.text = dialogue.lines[index].text;
     }
 
     public void StartDialogue(NPC npc)
-    {   
-        this.npc = npc; 
+    {
+        this.npc = npc;
+        dialogue = npc.dialogue;
+
+        exitButton.gameObject.SetActive(dialogue.canExit);
         nameField.text = this.npc.nameNPC;
-        dialogueField.text = this.npc.dialogue.lines[npc.progress].text;
+
+        DisplayLine(0);
     }
 
     public void NextDialogue()
     {
-        if(npc.progress == npc.dialogue.lines.Length - 1) {
+        if (npc.progress == dialogue.lines.Length - 1)
+        {
             CloseDialogue();
             return;
         }
 
-        npc.progress++;
-        dialogueField.text = npc.dialogue.lines[npc.progress].text;
+        DisplayLine(++npc.progress);
+    }
+
+    public void Option1()
+    {
+        print("Option1");
+        CloseDialogue();
+    }
+
+    public void Option2()
+    {
+        print("Option2");
+        CloseDialogue();
+    }
+
+    public void Option3()
+    {
+        print("Option3");
+        CloseDialogue();
     }
 
     public void CloseDialogue()
     {
-        nextButtonTMPro.text = "Next";
         gameObject.SetActive(false);
     }
 }
