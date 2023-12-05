@@ -43,11 +43,11 @@ MonoBehaviour:
   - text: How are you doing?
     hasOptions: 1
     options:
-    - text: 
+    - text: Good
       nextDialogue: {fileID: 0}
-    - text: 
+    - text: Ok
       nextDialogue: {fileID: 0}
-    - text: 
+    - text: Bad
       nextDialogue: {fileID: 0}
   nextDialogue: {fileID: 0}
   canExit: 0

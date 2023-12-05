@@ -2387,10 +2387,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameField: {fileID: 1158135532}
   dialogueField: {fileID: 320680266}
-  nextButton: {fileID: 120140773}
-  exitButton: {fileID: 680011374}
-  leftNPCImage: {fileID: 1727631494}
-  rightNPCImage: {fileID: 1160473344}
+  nextBtn: {fileID: 120140773}
+  exitBtn: {fileID: 680011374}
+  leftNPCImg: {fileID: 1727631494}
+  rightNPCImg: {fileID: 1160473344}
   optionsPanel: {fileID: 1264872863}
 --- !u!1 &1727631492
 GameObject:

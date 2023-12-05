@@ -12,23 +12,36 @@ public class DialogueUI : MonoBehaviour
 
     [SerializeField] private TMP_Text nameField;
     [SerializeField] private TMP_Text dialogueField;
-    [SerializeField] private Button nextButton;
-    [SerializeField] private Button exitButton;
-    [SerializeField] private Image leftNPCImage;
-    [SerializeField] private Image rightNPCImage;
+    [SerializeField] private Button nextBtn;
+    [SerializeField] private Button exitBtn;
+    [SerializeField] private Image leftNPCImg;
+    [SerializeField] private Image rightNPCImg;
     [SerializeField] private GameObject optionsPanel;
+    private TMP_Text option1BtnTxt;
+    private TMP_Text option2BtnTxt;
+    private TMP_Text option3BtnTxt;
 
     void Awake()
     {
-
+        option1BtnTxt = optionsPanel.transform.GetChild(0).GetComponentInChildren<TMP_Text>();
+        option2BtnTxt = optionsPanel.transform.GetChild(1).GetComponentInChildren<TMP_Text>();
+        option3BtnTxt = optionsPanel.transform.GetChild(2).GetComponentInChildren<TMP_Text>();
     }
 
     private void DisplayLine(int index)
     {
         bool hasOptions = dialogue.lines[index].hasOptions;
-        
+
+        if (hasOptions)
+        {
+            print(option1BtnTxt);
+            option1BtnTxt.text = dialogue.lines[index].options[0].text;
+            option2BtnTxt.text = dialogue.lines[index].options[1].text;
+            option3BtnTxt.text = dialogue.lines[index].options[2].text;
+        }
+
         optionsPanel.SetActive(hasOptions);
-        nextButton.gameObject.SetActive(!hasOptions);
+        nextBtn.gameObject.SetActive(!hasOptions);
         dialogueField.text = dialogue.lines[index].text;
     }
 
@@ -37,7 +50,7 @@ public class DialogueUI : MonoBehaviour
         this.npc = npc;
         dialogue = npc.dialogue;
 
-        exitButton.gameObject.SetActive(dialogue.canExit);
+        exitBtn.gameObject.SetActive(dialogue.canExit);
         nameField.text = this.npc.nameNPC;
 
         DisplayLine(0);
