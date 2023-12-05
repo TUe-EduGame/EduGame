@@ -17,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
         if(!isMoving) {
             PlayerInput.x = Input.GetAxisRaw("Horizontal");
             PlayerInput.y = Input.GetAxisRaw("Vertical");
+
+            if(PlayerInput.x != 0) PlayerInput.y = 0;
             if(PlayerInput != Vector2.zero) 
             {
                 var targetPos = transform.position;
