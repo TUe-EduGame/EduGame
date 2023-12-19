@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PlayerMovement : MonoBehaviour
 {   
@@ -8,25 +9,28 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 PlayerInput;
     public bool isMoving;
     public LayerMask solidObjectsLayer;
+    private Vector3 targetPos = new Vector3(0.5f, 0.5f, 0);
+
+    public Tilemap obstacles;
 
     void Start() {
         moveSpeed = 7f;
     }
     void Update()
     {
-        
+
         if(!isMoving) {
             PlayerInput.x = Input.GetAxisRaw("Horizontal");
             PlayerInput.y = Input.GetAxisRaw("Vertical");
 
             if(PlayerInput.x != 0) PlayerInput.y = 0;
+
             if(PlayerInput != Vector2.zero) 
             {
-                var targetPos = transform.position;
-                targetPos.x += PlayerInput.x;
-                targetPos.y += PlayerInput.y;
+                targetPos = transform.position + new Vector3(PlayerInput.x, PlayerInput.y, 0);
 		
-		if(isWalkable(targetPos)) {		
+		Vector3Int obstacleMap = obstacles.WorldToCell(targetPos);
+		if(obstacles.GetTile(obstacleMap) == null) {		
                 StartCoroutine(Move(targetPos));
 		}
             }
@@ -44,11 +48,9 @@ public class PlayerMovement : MonoBehaviour
         transform.position = targetPos;
         isMoving = false;
     }
-    
-    private bool isWalkable(Vector3 targetPos) {
-    	if(Physics2D.OverlapCircle(targetPos, 0.1f, solidObjectsLayer) != null) {
-	    return false;
-	}
-	return true;
+
+    void OnDrawGizmos() {
+	Gizmos.color = Color.red;
+	Gizmos.DrawSphere(targetPos, 0.2f);
     }
 }
