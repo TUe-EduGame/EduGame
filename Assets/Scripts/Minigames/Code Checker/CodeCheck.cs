@@ -20,7 +20,7 @@ public class CodeCheck : MonoBehaviour
 
     public void Update()
     {
-        // Busy-waiting  :(
+    
         if (finished && !selectFileBtn.enabled)
         {
             checkThread.Join();
