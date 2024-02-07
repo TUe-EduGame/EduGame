@@ -5,10 +5,15 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 
-public class DialogueUI : MonoBehaviour
+public class GraphDialogue : MonoBehaviour
 {
     private NPC npc;
     private Dialogue dialogue;
+
+    public PictureMovement map;
+
+    public PictureMovement[] pictures;
+    public Text[] pictureTexts;
 
     [SerializeField] private TMP_Text nameField;
     [SerializeField] private TMP_Text dialogueField;
@@ -44,6 +49,16 @@ public class DialogueUI : MonoBehaviour
         nextBtn.gameObject.SetActive(!hasOptions);
         dialogueField.text = dialogue.lines[index].text;
 
+        if (dialogue.lines[index].text == "maps") 
+        {
+            print("Maps");
+            map.MoveInScreen();
+        }
+        if (dialogue.lines[index-1].text == "maps")
+        {
+            print("After Maps");
+            map.MoveOutOfScreen();
+        }
     }
 
     public void StartDialogue(NPC npc)
