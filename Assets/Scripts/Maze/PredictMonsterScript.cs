@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PredictMonsterScript : MonoBehaviour
 {
+    private Animator animator;
     [SerializeField] private int lives = 10;
     public float[] InitialPosition = new float[3];
     public float moveTime = 2.0f;
@@ -22,6 +23,8 @@ public class PredictMonsterScript : MonoBehaviour
     void Start()
     {
         transform.position = new Vector3(InitialPosition[0], InitialPosition[1], InitialPosition[2]);
+        animator = GetComponent<Animator>();
+        animator.SetFloat("Alive", 1);
     }
 
     // Update is called once per frame
@@ -88,5 +91,24 @@ public class PredictMonsterScript : MonoBehaviour
     // Sets whether the monster is allowed to move
     public void allowMovement(bool allowed) {
         allowedToMove = allowed;
+    }
+
+    // Start the dying animation
+    public void Die() {
+        Debug.Log("Dying?");
+        if (lives <= 0) {
+            animator.SetFloat("Alive", 0.5f);
+            Debug.Log("Dying");
+        }
+    }
+
+    // Start the dead animation
+    public void Dead() {
+        Debug.Log("Died?");
+        if (lives <= 0) {
+            Debug.Log("GOing to be dead");
+            animator.SetFloat("Alive", 0);
+            Debug.Log("Dead");
+        }
     }
 }

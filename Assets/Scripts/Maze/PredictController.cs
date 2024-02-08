@@ -166,7 +166,7 @@ public class PredictController : MonoBehaviour
         monster.allowMovement(false);
         bullet.allowMovement(false);
         if (win) {
-            // kill the monster
+            monster.Die();
         } else {
             // Make monster destroy something or so
         }
