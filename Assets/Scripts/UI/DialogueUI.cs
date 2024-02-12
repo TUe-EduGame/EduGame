@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using Unity.VisualScripting;
 
 public class DialogueUI : MonoBehaviour
 {
@@ -17,9 +18,13 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private Image leftNPCImg;
     [SerializeField] private Image rightNPCImg;
     [SerializeField] private GameObject optionsPanel;
+    [SerializeField] private Image graphics;
     private TMP_Text option1BtnTxt;
     private TMP_Text option2BtnTxt;
     private TMP_Text option3BtnTxt;
+
+    private Sprite graphic;
+    private GameObject graphic2;
 
     void Awake()
     {
@@ -31,6 +36,7 @@ public class DialogueUI : MonoBehaviour
     private void DisplayLine(int index)
     {
         bool hasOptions = dialogue.lines[index].hasOptions;
+        bool hasGraphic = dialogue.lines[index].hasGraphic;
 
         if (hasOptions)
         {
@@ -43,6 +49,13 @@ public class DialogueUI : MonoBehaviour
         optionsPanel.SetActive(hasOptions);
         nextBtn.gameObject.SetActive(!hasOptions);
         dialogueField.text = dialogue.lines[index].text;
+
+        if (hasGraphic)
+        {
+            graphic = dialogue.lines[index].graphic;
+            graphics.GetComponent<Image>().sprite = graphic;
+            graphics.gameObject.SetActive(hasGraphic);
+        }
 
     }
 
@@ -59,6 +72,14 @@ public class DialogueUI : MonoBehaviour
 
     public void NextDialogue()
     {
+        bool hasGraphic = dialogue.lines[npc.progress].hasGraphic;
+        if (hasGraphic)
+        {
+            graphic = dialogue.lines[npc.progress].graphic;
+            graphics.GetComponent<Image>().sprite = graphic;
+            graphics.gameObject.SetActive(!hasGraphic);
+        }
+        
         if (npc.progress == dialogue.lines.Length - 1)
         {
             CloseDialogue();

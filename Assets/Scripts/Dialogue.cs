@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.XR;
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "newDialogue", menuName = "Dialogue System/Dialogue")]
 public class Dialogue : ScriptableObject
@@ -19,6 +20,9 @@ public class Line {
     public string text;
     public bool hasOptions;
     public Option[] options;
+
+    public bool hasGraphic;
+    public Sprite graphic;
 }
 
 [System.Serializable]
