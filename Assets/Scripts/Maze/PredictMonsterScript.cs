@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PredictMonsterScript : MonoBehaviour
 {
     private Animator animator;
-    [SerializeField] private int lives = 10;
+    // The number of lives the monster starts with
+    [SerializeField] private int initialLives = 10;
+    // The number of lives the monster currently has
+    private int lives;
     [SerializeField] private float[] initialPosition = new float[3];
     [SerializeField] private float[] finalPosition = new float[3];
     [SerializeField] private float[] initialScale = new float[3];
@@ -18,6 +22,8 @@ public class PredictMonsterScript : MonoBehaviour
     private bool allowedToMove = true;
     private bool rage = false;
     private SpriteRenderer renderer;
+    // Event that notifies other scripts that the monster finished changing its scale
+    public UnityEvent shrunk;
 
     // This function is called when the object becomes enabled and active.
     void Awake() {
@@ -32,6 +38,18 @@ public class PredictMonsterScript : MonoBehaviour
         animator = GetComponent<Animator>();
         animator.SetFloat("Alive", 1);
         renderer = GetComponent<SpriteRenderer>();
+        lives = initialLives;
+    }
+
+    // Puts the monster back at its starting position, scale and animation
+    public void Restart() {
+        transform.position = new Vector3(initialPosition[0], initialPosition[1], initialPosition[2]);
+        transform.localScale = new Vector3(initialScale[0], initialScale[1], initialScale[2]);
+        animator.SetFloat("Alive", 1);
+        // Reset the variables keeping track of the monster's state
+        allowMovement(true);
+        lives = initialLives;
+        rage = false;
     }
 
     // Update is called once per frame
@@ -70,6 +88,7 @@ public class PredictMonsterScript : MonoBehaviour
         }
 
         isShrinking = false;
+        shrunk.Invoke();
     }
 
     // Called upon a collision

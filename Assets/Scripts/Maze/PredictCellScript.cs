@@ -27,18 +27,13 @@ public class PredictCellScript : MonoBehaviour
         GameObject obj = GameObject.FindGameObjectWithTag("PredictController");
         try {
             controller = obj.GetComponent<PredictController>();
+            controller.restart.AddListener(PassAdj);
         } catch (NullReferenceException e) {
             throw new Exception("PredictController is null");
         }
         
         // Give controller adjacency list
-        foreach (int i in adj) {
-            try {
-                controller.AddNeighbor(id, i);
-            } catch (NullReferenceException e) {
-                throw new Exception("controller is null");
-            }
-        }
+        PassAdj();
 
         // Find sprite renderer
         try {
@@ -61,5 +56,16 @@ public class PredictCellScript : MonoBehaviour
     // Called when the object is clicked
     void OnMouseDown() {
         controller.Click(id);
+    }
+
+    // Passes this cell's adjacency list to the controller
+    private void PassAdj() {
+        foreach (int i in adj) {
+            try {
+                controller.AddNeighbor(id, i);
+            } catch (NullReferenceException e) {
+                throw new Exception("controller is null");
+            }
+        }
     }
 }

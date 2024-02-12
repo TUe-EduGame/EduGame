@@ -20,8 +20,7 @@ public class PredictBulletScript : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         transform.position = new Vector3(InitialPosition[0], InitialPosition[1], InitialPosition[2]);
     }
 
@@ -36,21 +35,18 @@ public class PredictBulletScript : MonoBehaviour
 
     // Moves the object to the position targetPos
     private IEnumerator Move(Vector3 targetPos) {
-        // Only move if the bullet is allowed to
-        if (allowedToMove) {
-            isMoving = true;
-            float moveSpeed = Vector3.Distance(transform.position, targetPos) / moveTime;
+        isMoving = true;
+        float moveSpeed = Vector3.Distance(transform.position, targetPos) / moveTime;
 
-            while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon) {
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
-                yield return null;
-            }
+        while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon) {
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
+            yield return null;
+        }
 
-            // Once the target has been reached, send a message that the bullet has reached its target
-            OnBulletHit.Invoke();
+        // Once the target has been reached, send a message that the bullet has reached its target
+        OnBulletHit.Invoke();
 
-            isMoving = false;
-        } 
+        isMoving = false;
     }
 
     // Shrinks the object to the targetScale
@@ -67,7 +63,10 @@ public class PredictBulletScript : MonoBehaviour
 
     // Adds a new move to the movement queue
     public void AddMove(Vector3 target) {
-        queue.Enqueue(target);
+        // Only move if the bullet is allowed to
+        if (allowedToMove) {    
+            queue.Enqueue(target);
+        }
     }
 
     // Returns whether the monster is currently moving
@@ -80,13 +79,20 @@ public class PredictBulletScript : MonoBehaviour
         return transform.position;
     }
 
-    // Resets the bullet to its start position
+    // Resets the bullet to its initial state
+    public void Restart() {
+        transform.position = new Vector3(InitialPosition[0], InitialPosition[1], InitialPosition[2]);
+        // Reset variables used to keep track of the bullet's state
+        AllowMovement(true);
+    }
+
+    // Resets the bullet to its starting position
     public void Reset() {
         transform.position = new Vector3(InitialPosition[0], InitialPosition[1], InitialPosition[2]);
     }
 
     // Sets whether the bullet is allowed to move
-    public void allowMovement(bool allowed) {
+    public void AllowMovement(bool allowed) {
         allowedToMove = allowed;
     }
 }
