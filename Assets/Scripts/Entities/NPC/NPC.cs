@@ -1,10 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class NPC : Entity
+public class NPC : Entity, Interactable
 {
     public String nameNPC;
     public Dialogue dialogue;
@@ -13,13 +10,18 @@ public class NPC : Entity
     // Start is called before the first frame update
     void Start()
     {
-        DialogueUI dialogueUI = GameObject.Find("DialogueUI").GetComponent<DialogueUI>();
-        dialogueUI.StartDialogue(this);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void Interact() {
+        DialogueUI dialogueUI = GameObject.Find("Canvas").transform.GetChild(0).GetComponentInChildren<DialogueUI>();
+        dialogueUI.gameObject.SetActive(true);
+        dialogueUI.StartDialogue(this);
     }
 }
