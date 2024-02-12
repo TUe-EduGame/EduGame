@@ -20,7 +20,7 @@ public class PredictMonsterScript : MonoBehaviour
     private Queue<Vector3> queue = new Queue<Vector3>();
     private bool allowedToMove = true;
     private bool rage = false;
-    private SpriteRenderer renderer;
+    private SpriteRenderer spriteRenderer;
     // Event that notifies other scripts that the monster finished changing its scale
     public UnityEvent shrunk;
 
@@ -37,7 +37,7 @@ public class PredictMonsterScript : MonoBehaviour
         transform.localScale = new Vector3(initialScale[0], initialScale[1], initialScale[2]);
         animator = GetComponent<Animator>();
         animator.SetFloat("Alive", 1);
-        renderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         lives = initialLives;
     }
 
@@ -155,7 +155,7 @@ public class PredictMonsterScript : MonoBehaviour
             animator.SetFloat("Alive", 1.5f);
             StartCoroutine(Move(new Vector3(finalPosition[0], finalPosition[1], finalPosition[2])));
             StartCoroutine(Shrink(new Vector3(finalScale[0], finalScale[1], finalScale[2])));
-            renderer.sortingOrder = 3;
+            spriteRenderer.sortingOrder = 3;
         }
     }
 }

@@ -14,7 +14,7 @@ public class PredictCellScript : MonoBehaviour
     private Vector3 center;
     public int id;
     public List<int> adj;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,8 +24,6 @@ public class PredictCellScript : MonoBehaviour
         {
             controller = obj.GetComponent<PredictController>();
             controller.restart.AddListener(PassAdj);
-        } catch (NullReferenceException e) {
-            throw new Exception("PredictController is null");
         }
         catch (NullReferenceException)
         {
@@ -66,12 +64,17 @@ public class PredictCellScript : MonoBehaviour
     }
 
     // Passes this cell's adjacency list to the controller
-    private void PassAdj() {
-        foreach (int i in adj) {
-            try {
+    private void PassAdj()
+    {
+        foreach (int i in adj)
+        {
+            try
+            {
                 controller.AddNeighbor(id, i);
-            } catch (NullReferenceException e) {
-                throw new Exception("controller is null");
+            }
+            catch (NullReferenceException)
+            {
+                throw new Exception("Controller is null!");
             }
         }
     }
