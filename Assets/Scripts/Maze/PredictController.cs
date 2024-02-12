@@ -33,6 +33,7 @@ public class PredictController : MonoBehaviour
     private PredictBulletScript bullet;
     // Keeps track of the adjacencies of all the cells
     private AdjacencyList adj;
+    private GameObject deathScreen;
 
     void Awake() {
         adj = new AdjacencyList(nrOfCells);
@@ -49,6 +50,7 @@ public class PredictController : MonoBehaviour
         monster = FindObjectOfType<PredictMonsterScript>();
         bullet = FindObjectOfType<PredictBulletScript>();
         bullet.OnBulletHit.AddListener(Hit);
+        deathScreen = GameObject.Find("Canvas").transform.GetChild(0).gameObject;
     }
 
     // Update is called once per frame
@@ -95,7 +97,7 @@ public class PredictController : MonoBehaviour
     }
 
     // Moves the monster to cell @target
-    public void MoveTo(int target) {
+    private void MoveTo(int target) {
         // Schedule a move to the target
         monster.AddMove(pos[target]);
 
@@ -110,7 +112,7 @@ public class PredictController : MonoBehaviour
     }
 
     // Moves the monster using dfs until a decision point is reached
-    public void Dfs(int start, int stepsTaken) {
+    private void Dfs(int start, int stepsTaken) {
         List<int> neighbors = new List<int>(adj.GetNeighbors(start));
         // After 3 steps a decision point is reached
         // If there are multiple options then, randomly pick one step further
@@ -139,16 +141,16 @@ public class PredictController : MonoBehaviour
                     neighbors.Remove(id);
                 }
             }
+            // If the monster went back to 0, the player hasn't killed it in time so the player lost
+            if (completed[1]) {
+                End(false);
+            }
         }   
     }
 
     // Called when the bullet hit its target
     public void Hit() {
         bullet.Reset();
-        // If the monster went back to 0, the player hasn't killed it in time so the player lost
-        if (completed[1]) {
-            End(false);
-        }
         // If the monster is out of lives, the player has killed it and won
         if (monster.Lives() <= 0) {
             End(true);
@@ -161,14 +163,21 @@ public class PredictController : MonoBehaviour
         
     }
 
-    public void End(bool win) {
+    private void End(bool win) {
         // Disable moving
         monster.allowMovement(false);
         bullet.allowMovement(false);
         if (win) {
             monster.Die();
         } else {
-            // Make monster destroy something or so
+            // Start raging animation and activate deathscreen
+            monster.SetRage(true);
+            Invoke("SetDeathScreen", 1.0f);
         }
+    }
+
+    // Activates the death screen
+    public void SetDeathScreen() {
+        deathScreen.SetActive(true);
     }
 }

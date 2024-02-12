@@ -6,13 +6,18 @@ public class PredictMonsterScript : MonoBehaviour
 {
     private Animator animator;
     [SerializeField] private int lives = 10;
-    public float[] InitialPosition = new float[3];
-    public float moveTime = 2.0f;
-    public float scaleSpeed = 5.0f;
+    [SerializeField] private float[] initialPosition = new float[3];
+    [SerializeField] private float[] finalPosition = new float[3];
+    [SerializeField] private float[] initialScale = new float[3];
+    [SerializeField] private float[] finalScale = new float[3];
+    [SerializeField] private float moveTime = 2.0f;
+    [SerializeField] private float scaleSpeed = 5.0f;
     private bool isMoving = false;
     private bool isShrinking = false;
     private Queue<Vector3> queue = new Queue<Vector3>();
     private bool allowedToMove = true;
+    private bool rage = false;
+    private SpriteRenderer renderer;
 
     // This function is called when the object becomes enabled and active.
     void Awake() {
@@ -22,9 +27,11 @@ public class PredictMonsterScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = new Vector3(InitialPosition[0], InitialPosition[1], InitialPosition[2]);
+        transform.position = new Vector3(initialPosition[0], initialPosition[1], initialPosition[2]);
+        transform.localScale = new Vector3(initialScale[0], initialScale[1], initialScale[2]);
         animator = GetComponent<Animator>();
         animator.SetFloat("Alive", 1);
+        renderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -38,17 +45,19 @@ public class PredictMonsterScript : MonoBehaviour
 
     // Moves the object to the position targetPos
     private IEnumerator Move(Vector3 targetPos) {
-        if (allowedToMove) {
-            isMoving = true;
-            float moveSpeed = Vector3.Distance(transform.position, targetPos) / moveTime;
+        isMoving = true;
+        float moveSpeed = Vector3.Distance(transform.position, targetPos) / moveTime;
 
-            while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon) {
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
-                yield return null;
-            }
+        while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon) {
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
+            yield return null;
+        }
 
-            isMoving = false;
-        }        
+        isMoving = false;
+        if (rage && queue.Count == 0) {
+            SetRage(false);
+            Rage();
+        }
     }
 
     // Shrinks the object to the targetScale
@@ -74,7 +83,9 @@ public class PredictMonsterScript : MonoBehaviour
 
     // Adds a new move to the movement queue
     public void AddMove(Vector3 target) {
-        queue.Enqueue(target);
+        if (allowedToMove) {
+            queue.Enqueue(target);            
+        }
     }
 
     // Returns whether the monster is currently moving
@@ -93,22 +104,36 @@ public class PredictMonsterScript : MonoBehaviour
         allowedToMove = allowed;
     }
 
+    // Sets whether the monster can rage
+    public void SetRage(bool toRage) {
+        rage = toRage;
+    }
+
     // Start the dying animation
     public void Die() {
-        Debug.Log("Dying?");
         if (lives <= 0) {
             animator.SetFloat("Alive", 0.5f);
-            Debug.Log("Dying");
+        } else {
+            Debug.LogWarning("Monster dies when lives > 0");
         }
     }
 
     // Start the dead animation
     public void Dead() {
-        Debug.Log("Died?");
         if (lives <= 0) {
-            Debug.Log("GOing to be dead");
             animator.SetFloat("Alive", 0);
-            Debug.Log("Dead");
+        } else {
+            Debug.LogWarning("Monster died when lives = " + lives);
+        }
+    }
+
+    // Start the raging animation
+    private void Rage() {
+        if (lives > 0) {
+            animator.SetFloat("Alive", 1.5f);
+            StartCoroutine(Move(new Vector3(finalPosition[0], finalPosition[1], finalPosition[2])));
+            StartCoroutine(Shrink(new Vector3(finalScale[0], finalScale[1], finalScale[2])));
+            renderer.sortingOrder = 3;
         }
     }
 }

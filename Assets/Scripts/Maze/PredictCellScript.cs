@@ -58,31 +58,8 @@ public class PredictCellScript : MonoBehaviour
         controller.SetPos(id, center);
     }
 
-    // Update is called once per frame
-    void Update() {
-        
-    }
-
-    // This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
-    void FixedUpdate() {
-
-    }
-
     // Called when the object is clicked
     void OnMouseDown() {
         controller.Click(id);
     }
-
-    // Shrinks the object to the targetScale
-    public IEnumerator Shrink(Vector3 targetScale) {
-        isShrinking = true;
-
-        while ((targetScale - transform.localScale).sqrMagnitude > Mathf.Epsilon) {
-            transform.localScale = Vector3.MoveTowards(transform.localScale, targetScale, scaleSpeed * Time.deltaTime);
-            yield return null;
-        }
-
-        isShrinking = false;
-    }
-
 }
