@@ -1453,6 +1453,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameNPC: NPC#1
   dialogue: {fileID: 11400000, guid: ac2510616e884ad4081f90f7fb049e80, type: 2}
+  triggerDialogueOnStart: 1
+  dialogueStarted: 0
   progress: 0
 --- !u!1 &531754197
 GameObject:

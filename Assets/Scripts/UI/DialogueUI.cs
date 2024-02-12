@@ -20,9 +20,16 @@ public class DialogueUI : MonoBehaviour
     private TMP_Text option1BtnTxt;
     private TMP_Text option2BtnTxt;
     private TMP_Text option3BtnTxt;
+    private AudioSource audioSource;
+    [SerializeField]
+    AudioClip buttonClick;
+
+    private bool isTyping = false;
+    private Coroutine typingCoroutine;
 
     void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         option1BtnTxt = optionsPanel.transform.GetChild(0).GetComponentInChildren<TMP_Text>();
         option2BtnTxt = optionsPanel.transform.GetChild(1).GetComponentInChildren<TMP_Text>();
         option3BtnTxt = optionsPanel.transform.GetChild(2).GetComponentInChildren<TMP_Text>();
@@ -42,7 +49,23 @@ public class DialogueUI : MonoBehaviour
 
         optionsPanel.SetActive(hasOptions);
         nextBtn.gameObject.SetActive(!hasOptions);
-        dialogueField.text = dialogue.lines[index].text;
+
+        
+        // StartCoroutine to load the text letter by letter
+        typingCoroutine = StartCoroutine(TypeLine(dialogue.lines[index].text));
+    }
+
+    IEnumerator TypeLine(string line)
+    {
+        isTyping = true;
+        dialogueField.text = "";
+        foreach (char letter in line.ToCharArray())
+        {
+            dialogueField.text += letter;
+            audioSource.PlayOneShot(buttonClick, 1);
+            yield return new WaitForSeconds(0.05f);
+        }
+        isTyping = false;
     }
 
     public void StartDialogue(NPC npc)
@@ -61,6 +84,14 @@ public class DialogueUI : MonoBehaviour
         if (npc.progress == dialogue.lines.Length - 1)
         {
             CloseDialogue();
+            return;
+        }
+
+        if(isTyping)
+        {
+            StopCoroutine(typingCoroutine);
+            dialogueField.text = dialogue.lines[npc.progress].text;
+            isTyping = false;
             return;
         }
 
