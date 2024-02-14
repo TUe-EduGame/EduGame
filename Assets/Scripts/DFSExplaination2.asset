@@ -29,140 +29,142 @@ MonoBehaviour:
       name. '
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
-  - text: 'Now when we explore an unexplored vertex w of a vertex v, w gets predecessor
-      label pred(w) = v. '
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: ab72a1ebc4c0b174fa850351212e3084, type: 3}
+  - text: 'Now we perform DFS as before, but when we explore an unexplored neighbor
+      w of a vertex v, w gets predecessor label pred(w) = v. '
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: ab72a1ebc4c0b174fa850351212e3084, type: 3}
   - text: So if we again start in vertex S, we get the following
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 88e4599a944b066498618a36e2182462, type: 3}
   - text: 
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 74559543eafb9e84eaf238fa972a7a0d, type: 3}
   - text: 
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 21dbadda0b670fe40bebb0501824c72d, type: 3}
   - text: 
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 6551ac03350de494da62b8ac5524cde0, type: 3}
   - text: 
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 7d7490edfb028354987a737f92beb72f, type: 3}
   - text: 
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: ee2f993c955a22942a0b7b2c54f3c2d2, type: 3}
   - text: 
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 0ca5d94901e8f82438461fb7c6674940, type: 3}
   - text: 
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 7f4ef4117cd0a80489afe35729eb8d2d, type: 3}
   - text: 
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 86c1b32d67da43b459216f3a0a7f3b81, type: 3}
   - text: 
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: dc859ce8d1eb516469feacdd3d7ada6e, type: 3}
   - text: 
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 83e061319a6a99244a6fb0cecdcaaee1, type: 3}
   - text: 
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 155571dd17e9e484ab0342da10374096, type: 3}
   - text: 
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: d362a6705d2f192439e648d62eccebbe, type: 3}
   - text: 
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 939fa420e45162c4e8c4b7a04ed2a19b, type: 3}
   - text: 
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 7ffc78433c902dc4d8e9ffea41695b9f, type: 3}
   - text: 
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: f86d3e5bf4ccd15458252470e1efad57, type: 3}
   - text: 
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 8f434acf34040054787a09294a2ab854, type: 3}
   - text: 
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 7f603a164c39b6747b933e13f78999de, type: 3}
   - text: 
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 9ee0c3afb4d4b964ead4f13114ce877e, type: 3}
   - text: 
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 522a7d56d4a1bca4e98538ab823d5e04, type: 3}
   - text: 
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: c8afcaf96792be24abfc13330600fd03, type: 3}
   - text: 
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: cb8ba10a81880ef449e3f40379475487, type: 3}
   - text: 
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
-  - text: 
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 9f1f857f589dbdb469bb76a273a43351, type: 3}
+  - text: Now to find a path from S to some vertex, say T, we can look at the predecessor
+      labels, starting from T to get
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
-  - text: 
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 9f1f857f589dbdb469bb76a273a43351, type: 3}
+  - text: 'TIGBS. If we reverse this, we get the path SBGIT. '
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
-  - text: 
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 9f1f857f589dbdb469bb76a273a43351, type: 3}
+  - text: 'If you only need to find one path, like the path from S to T, you can
+      stop DFS once you find the goal vertex T. '
     hasOptions: 0
     options: []
     hasGraphic: 0
