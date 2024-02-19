@@ -1,12 +1,19 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
-public class DialogueUI : MonoBehaviour
+public class GraphDialogue : MonoBehaviour
 {
     private NPC npc;
     private Dialogue dialogue;
+
+    public PictureMovement map;
+
+    public PictureMovement[] pictures;
+    public Text[] pictureTexts;
 
     [SerializeField] private TMP_Text nameField;
     [SerializeField] private TMP_Text dialogueField;
@@ -15,22 +22,12 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private Image leftNPCImg;
     [SerializeField] private Image rightNPCImg;
     [SerializeField] private GameObject optionsPanel;
-    [SerializeField] private Image graphics;
     private TMP_Text option1BtnTxt;
     private TMP_Text option2BtnTxt;
     private TMP_Text option3BtnTxt;
-    private AudioSource audioSource;
-    [SerializeField]
-    AudioClip buttonClick;
-
-    private Sprite graphic;
-
-    private bool isTyping = false;
-    private Coroutine typingCoroutine;
 
     void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
         option1BtnTxt = optionsPanel.transform.GetChild(0).GetComponentInChildren<TMP_Text>();
         option2BtnTxt = optionsPanel.transform.GetChild(1).GetComponentInChildren<TMP_Text>();
         option3BtnTxt = optionsPanel.transform.GetChild(2).GetComponentInChildren<TMP_Text>();
@@ -39,7 +36,6 @@ public class DialogueUI : MonoBehaviour
     private void DisplayLine(int index)
     {
         bool hasOptions = dialogue.lines[index].hasOptions;
-        bool hasGraphic = dialogue.lines[index].hasGraphic;
 
         if (hasOptions)
         {
@@ -51,30 +47,18 @@ public class DialogueUI : MonoBehaviour
 
         optionsPanel.SetActive(hasOptions);
         nextBtn.gameObject.SetActive(!hasOptions);
+        dialogueField.text = dialogue.lines[index].text;
 
-        if (hasGraphic)
+        if (dialogue.lines[index].text == "maps") 
         {
-            graphic = dialogue.lines[index].graphic;
-            graphics.GetComponent<Image>().sprite = graphic;
-            graphics.gameObject.SetActive(hasGraphic);
+            print("Maps");
+            map.MoveInScreen();
         }
-
-        // StartCoroutine to load the text letter by letter
-        typingCoroutine = StartCoroutine(TypeLine(dialogue.lines[index].text));
-    }
-
-    IEnumerator TypeLine(string line)
-    {
-        isTyping = true;
-        dialogueField.text = "";
-        foreach (char letter in line.ToCharArray())
+        if (dialogue.lines[index-1].text == "maps")
         {
-            dialogueField.text += letter;
-            audioSource.pitch = 0.6f;
-            audioSource.PlayOneShot(buttonClick, 0.5f);
-            yield return new WaitForSeconds(0.05f);
+            print("After Maps");
+            map.MoveOutOfScreen();
         }
-        isTyping = false;
     }
 
     public void StartDialogue(NPC npc)
@@ -90,28 +74,10 @@ public class DialogueUI : MonoBehaviour
 
     public void NextDialogue()
     {
-
         if (npc.progress == dialogue.lines.Length - 1)
         {
             CloseDialogue();
             return;
-        }
-
-        if (isTyping)
-        {
-            StopCoroutine(typingCoroutine);
-            dialogueField.text = dialogue.lines[npc.progress].text;
-            isTyping = false;
-            return;
-        }
-
-        bool hasGraphic = dialogue.lines[npc.progress].hasGraphic;
-
-        if (hasGraphic)
-        {
-            graphic = dialogue.lines[npc.progress].graphic;
-            graphics.sprite = graphic;
-            graphics.gameObject.SetActive(!hasGraphic);
         }
 
         DisplayLine(++npc.progress);
