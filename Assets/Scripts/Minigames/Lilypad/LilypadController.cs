@@ -16,7 +16,7 @@ public class LilypadController : MonoBehaviour
         new Vector3(0.5f,2.5f,0)
     }; 
     private int nrOfLilypads = 7;
-    private Vector3 scale = new Vector3(1.0f, 1.0f, 1.0f);
+    private Vector3 scale = new Vector3(1.7f, 1.7f, 1.7f);
     private List<int>[] adj;
     private bool[] accessible;
     private bool[] visited;
