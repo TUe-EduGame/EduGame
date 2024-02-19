@@ -22,6 +22,8 @@ public class LilypadController : MonoBehaviour
     private bool[] accessible;
     private bool[] visited;
     private int current;
+    // Whether movement is currently allowed
+    private bool allowedToMove;
     private LilypadCharacterScript character;
     private GameObject deathscreen;
     public UnityEvent restart;
@@ -43,26 +45,40 @@ public class LilypadController : MonoBehaviour
 
     // Moves the character to the target lilypad
     // If this is not a legal move, it sinks both the target and the character
-    public void MoveTo(int target) {        
-        if (adj[current].Contains(target)) {
-            if (visited[target] == false || adj[current].Count == 1) {
-                accessible[target] = true;
-                accessible[current] = false;
-                adj[current].Remove(target);
-                visited[current] = true;
-                if (!adj[current].Any()) {
-                    // maybe change the color?
+    public void MoveTo(int target) {    
+        if (allowedToMove) {
+            if (adj[current].Contains(target)) {
+                if (visited[target] == false || adj[current].Count == 1) {
+                    accessible[target] = true;
+                    accessible[current] = false;
+                    adj[current].Remove(target);
+                    visited[current] = true;
+                    if (!adj[current].Any()) {
+                        // maybe change the color?
+                    }
+                    current = target;
                 }
-                current = target;
+            } else {
+                accessible[target] = false;
             }
-        } else {
-            accessible[target] = false;
-        }
-        StartCoroutine(character.Move(position[target]));
+            StartCoroutine(character.Move(position[target]));
+        }          
+    }
+
+    public bool Finished() {
+        return adj[current].Count == 0;
+    }
+
+    // Called when the player has visited all lilypads and came back
+    public void Win() {
+        allowedToMove = false;
+        GameObject winNPC = GameObject.Find("WinNPC");
+        winNPC.GetComponent<NPC>().Interact();
     }
 
     // Called when the player has failed, tragically
     public void Lose() {
+        allowedToMove = false;
         StartCoroutine(character.Shrink(new Vector3(0.001f, 0.001f, 0.001f)));
         deathscreen.SetActive(true);
     }
@@ -90,6 +106,7 @@ public class LilypadController : MonoBehaviour
         current = 0;
         character = FindObjectOfType<LilypadCharacterScript>();
         deathscreen = GameObject.Find("Canvas").transform.GetChild(2).gameObject;
+        allowedToMove = true;
     }
 
     // Called to reset the data to be able to start a new game
@@ -108,6 +125,7 @@ public class LilypadController : MonoBehaviour
         restart.Invoke();
         character.Reset();
         deathscreen.SetActive(false);
+        allowedToMove = true;
     }
 
     // Update is called once per frame

@@ -48,6 +48,10 @@ public class LilypadScript : MonoBehaviour
         {
             StartCoroutine(Shrink(new Vector3(0.001f, 0.001f, 0.001f)));
             controller.Lose();
+        } else {
+            if (controller.Finished()) {
+                controller.Win();
+            }
         }
     }
 

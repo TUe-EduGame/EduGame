@@ -3049,7 +3049,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39c17f7cce2fcc54f91e6c854a6e1f26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameNPC: Non-Predicting Character
+  nameNPC: Scared Fred
   dialogue: {fileID: 11400000, guid: 4d8c98da48ac02d459b3167cb5382e8a, type: 2}
   triggerDialogueOnStart: 1
   dialogueStarted: 0
