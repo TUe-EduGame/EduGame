@@ -1192,6 +1192,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameNPC: NPC#1
   dialogue: {fileID: 11400000, guid: 43da9d876bd6448478460ce4f1304283, type: 2}
+  triggerDialogueOnStart: 1
+  dialogueStarted: 0
   progress: 0
 --- !u!212 &1017032116
 SpriteRenderer:
@@ -1327,6 +1329,7 @@ MonoBehaviour:
   rightNPCImg: {fileID: 2057930915}
   optionsPanel: {fileID: 1197558717}
   graphics: {fileID: 1785393224}
+  buttonClick: {fileID: 0}
 --- !u!114 &1124351589
 MonoBehaviour:
   m_ObjectHideFlags: 0

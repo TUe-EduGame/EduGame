@@ -1,10 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using System;
-using Unity.VisualScripting;
 
 public class DialogueUI : MonoBehaviour
 {
@@ -27,7 +24,6 @@ public class DialogueUI : MonoBehaviour
     AudioClip buttonClick;
 
     private Sprite graphic;
-    private GameObject graphic2;
 
     private bool isTyping = false;
     private Coroutine typingCoroutine;
@@ -56,9 +52,6 @@ public class DialogueUI : MonoBehaviour
         optionsPanel.SetActive(hasOptions);
         nextBtn.gameObject.SetActive(!hasOptions);
 
-        
-        // StartCoroutine to load the text letter by letter
-        typingCoroutine = StartCoroutine(TypeLine(dialogue.lines[index].text));
         if (hasGraphic)
         {
             graphic = dialogue.lines[index].graphic;
@@ -66,6 +59,8 @@ public class DialogueUI : MonoBehaviour
             graphics.gameObject.SetActive(hasGraphic);
         }
 
+        // StartCoroutine to load the text letter by letter
+        typingCoroutine = StartCoroutine(TypeLine(dialogue.lines[index].text));
     }
 
     IEnumerator TypeLine(string line)
@@ -75,7 +70,8 @@ public class DialogueUI : MonoBehaviour
         foreach (char letter in line.ToCharArray())
         {
             dialogueField.text += letter;
-            audioSource.PlayOneShot(buttonClick, 1);
+            audioSource.pitch = 0.6f;
+            audioSource.PlayOneShot(buttonClick, 0.5f);
             yield return new WaitForSeconds(0.05f);
         }
         isTyping = false;
@@ -101,14 +97,14 @@ public class DialogueUI : MonoBehaviour
             graphics.GetComponent<Image>().sprite = graphic;
             graphics.gameObject.SetActive(!hasGraphic);
         }
-        
+
         if (npc.progress == dialogue.lines.Length - 1)
         {
             CloseDialogue();
             return;
         }
 
-        if(isTyping)
+        if (isTyping)
         {
             StopCoroutine(typingCoroutine);
             dialogueField.text = dialogue.lines[npc.progress].text;
