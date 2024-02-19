@@ -9,9 +9,6 @@ public class LilypadCharacterScript : MonoBehaviour
     public float moveSpeed = 5.0f;
     public float scaleSpeed = 5.0f;
     public string myString = "Hello World";
-    private bool isMoving = false;
-    private bool isShrinking = false;
-
     
     private AudioSource audioSource;
 
@@ -39,26 +36,22 @@ public class LilypadCharacterScript : MonoBehaviour
 
     // Moves the object to the position targetPos
     public IEnumerator Move(Vector3 targetPos) {
-        isMoving = true;
 
         while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon) {
             transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
             yield return null;
         }
 
-        isMoving = false;
     }
 
     // Shrinks the object to the targetScale
     public IEnumerator Shrink(Vector3 targetScale) {
-        isShrinking = true;
 
         while ((targetScale - transform.localScale).sqrMagnitude > Mathf.Epsilon) {
             transform.localScale = Vector3.MoveTowards(transform.localScale, targetScale, scaleSpeed * Time.deltaTime);
             yield return null;
         }
 
-        isShrinking = false;
     }
 
 }
