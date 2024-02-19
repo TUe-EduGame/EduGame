@@ -90,13 +90,6 @@ public class DialogueUI : MonoBehaviour
 
     public void NextDialogue()
     {
-        bool hasGraphic = dialogue.lines[npc.progress].hasGraphic;
-        if (hasGraphic)
-        {
-            graphic = dialogue.lines[npc.progress].graphic;
-            graphics.GetComponent<Image>().sprite = graphic;
-            graphics.gameObject.SetActive(!hasGraphic);
-        }
 
         if (npc.progress == dialogue.lines.Length - 1)
         {
@@ -110,6 +103,15 @@ public class DialogueUI : MonoBehaviour
             dialogueField.text = dialogue.lines[npc.progress].text;
             isTyping = false;
             return;
+        }
+
+        bool hasGraphic = dialogue.lines[npc.progress].hasGraphic;
+
+        if (hasGraphic)
+        {
+            graphic = dialogue.lines[npc.progress].graphic;
+            graphics.sprite = graphic;
+            graphics.gameObject.SetActive(!hasGraphic);
         }
 
         DisplayLine(++npc.progress);
