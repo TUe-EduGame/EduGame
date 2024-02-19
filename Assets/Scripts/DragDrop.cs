@@ -3,9 +3,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class DragDrop : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public void OnPointerDown(PointerEventData eventData) {
+    public GameObject objectToDrag;
+    public GameObject objectDragToPos;
+
+    public float DropDistance;
+
+    public bool isLocked;
+
+    Vector2 objectInitPos;
+
+    public string StringInToolTip;
+
+    void Start() {
+        objectInitPos = objectToDrag.transform.position;
+    }
+
+    public void DragObject() {
+        if(!isLocked) {
+            objectToDrag.transform.position = Input.mousePosition;
+        }
+    }
+
+    public void DropObject() {
+        float Distance = Vector3.Distance(objectToDrag.transform.position, objectDragToPos.transform.position);
+        if(Distance < DropDistance) {
+            isLocked = true;
+            objectToDrag.transform.position = objectDragToPos.transform.position;
+        }
+        else {
+            objectToDrag.transform.position = objectInitPos;
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData) {
+        ToolTip.ShowToolTip_Static(StringInToolTip);
+    }
+    public void OnPointerExit(PointerEventData eventData) {
+        ToolTip.HideToolTip_Static();
+    }
+    /*public void OnPointerDown(PointerEventData eventData) {
         UnityEngine.Debug.Log("OnPointerDown");
     }
     
@@ -17,5 +55,5 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
     }
     public void OnDrag(PointerEventData eventData) {
         UnityEngine.Debug.Log("OnDrag");
-    }
+    }*/
 }
