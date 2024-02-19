@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class LilypadController : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class LilypadController : MonoBehaviour
     private bool[] visited;
     private int current;
     private LilypadCharacterScript character;
+    private GameObject deathscreen;
+    public UnityEvent restart;
 
     // Returns the position of lilypad id
     public Vector3 GetPosition(int id) {
@@ -58,8 +61,10 @@ public class LilypadController : MonoBehaviour
         StartCoroutine(character.Move(position[target]));
     }
 
-    public void Shrink() {
+    // Called when the player has failed, tragically
+    public void Lose() {
         StartCoroutine(character.Shrink(new Vector3(0.001f, 0.001f, 0.001f)));
+        deathscreen.SetActive(true);
     }
 
     // This function is called when the object becomes enabled and active.
@@ -68,6 +73,8 @@ public class LilypadController : MonoBehaviour
     }
 
     // Start is called before the first frame update
+    // I'm very sorry that so much of this is hard-coded :( 
+        // Rest assured that I did better in the Maze game :) 
     void Start() {
         adj = new List<int>[nrOfLilypads];
         adj[0] = new List<int> {1,2};
@@ -82,6 +89,25 @@ public class LilypadController : MonoBehaviour
         visited = new bool[nrOfLilypads];
         current = 0;
         character = FindObjectOfType<LilypadCharacterScript>();
+        deathscreen = GameObject.Find("Canvas").transform.GetChild(2).gameObject;
+    }
+
+    // Called to reset the data to be able to start a new game
+    public void Reset() {
+        adj[0] = new List<int> {1,2};
+        adj[1] = new List<int> {0,3,4};
+        adj[2] = new List<int> {0,5};
+        adj[3] = new List<int> {1,6};
+        adj[4] = new List<int> {1};
+        adj[5] = new List<int> {2};
+        adj[6] = new List<int> {3};
+        accessible = new bool[nrOfLilypads];
+        accessible[0] = true;
+        visited = new bool[nrOfLilypads];
+        current = 0;
+        restart.Invoke();
+        character.Reset();
+        deathscreen.SetActive(false);
     }
 
     // Update is called once per frame

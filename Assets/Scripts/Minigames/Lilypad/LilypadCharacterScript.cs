@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class LilypadCharacterScript : MonoBehaviour
 {
-
-    public int position = 0;
-    public float moveSpeed = 5.0f;
-    public float scaleSpeed = 5.0f;
-    public string myString = "Hello World";
-    
-    private AudioSource audioSource;
+    [SerializeField] private float moveSpeed = 5.0f;
+    [SerializeField] private float scaleSpeed = 5.0f;
+    // The position the character starts in
+    [SerializeField] private float[] initialPosition = new float[3];
+    [SerializeField] private float[] initialScale = new float[3];
 
     // This function is called when the object becomes enabled and active.
     void Awake() {
@@ -20,7 +18,14 @@ public class LilypadCharacterScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = new Vector3(-6, 0, 0);
+        transform.position = new Vector3(initialPosition[0], initialPosition[1], initialPosition[2]);
+        transform.localScale = new Vector3(initialScale[0], initialScale[1], initialScale[2]);
+    }
+
+    // Called to reset the character to its original position
+    public void Reset() {
+        transform.position = new Vector3(initialPosition[0], initialPosition[1], initialPosition[2]);
+        transform.localScale = new Vector3(initialScale[0], initialScale[1], initialScale[2]);
     }
 
     // Update is called once per frame

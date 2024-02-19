@@ -48,7 +48,7 @@ public class PredictController : MonoBehaviour
         monster.shrunk.AddListener(SetDeathScreen);
         bullet = FindObjectOfType<PredictBulletScript>();
         bullet.OnBulletHit.AddListener(Hit);
-        deathScreen = GameObject.Find("Canvas").transform.GetChild(0).gameObject;
+        deathScreen = GameObject.Find("Canvas").transform.GetChild(2).gameObject;
     }
 
     // Update is called once per frame
