@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac38ed0d2236dc4982a36a95d5f36aa, type: 3}
+  m_Name: GraphExplaination
+  m_EditorClassIdentifier: 
+  lines:
+  - text: 'Many programming problems require you to work with graphs. '
+    hasOptions: 0
+    options: []
+    hasGraphic: 0
+    graphic: {fileID: 0}
+  - text: A graph is a datastructure that can represent many different networks like
+    hasOptions: 0
+    options: []
+    hasGraphic: 0
+    graphic: {fileID: 0}
+  - text: pipelines
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 88a4480dee8921d40be63ad98dc75c55, type: 3}
+  - text: and maps.
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: ae9e8f768e77ebf4f80b17c5176d6a72, type: 3}
+  - text: A graph consists of two kinds of elements
+    hasOptions: 0
+    options: []
+    hasGraphic: 0
+    graphic: {fileID: 0}
+  - text: vertices, which can be seen as the cities on a map
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 2a5896b6849dd2245b8c772b94f723a1, type: 3}
+  - text: 'and edges, which connect two vertices. These can be seen as the roads
+      on a map. '
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 5550aec3bcc181940929dabfb5e4ae17, type: 3}
+  - text: 'A graph is defined by the set of its vertices and the set of its edges. '
+    hasOptions: 0
+    options: []
+    hasGraphic: 0
+    graphic: {fileID: 0}
+  - text: We can turn this map this map into a graph,
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: ae9e8f768e77ebf4f80b17c5176d6a72, type: 3}
+  - text: by replacing each city with a vertex
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 151006ff105460747a1d531974d2f674, type: 3}
+  - text: and each road between two cities with an edge
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 38bb0f95d600ef34fb6a9acb3f018497, type: 3}
+  - text: this gives us this graph.
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 292744849fa2fa94aa7c1c70d1bbed60, type: 3}
+  - text: We can also turn this map into a graph,
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 4d29293b199659e468216d7d384ce39f, type: 3}
+  - text: 'by replacing each intersection with a vertex, '
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: f46b1ba44c8e917449f5acfba4416e5e, type: 3}
+  - text: 'and each road between two intersections with an edge. '
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 285beebcccfe79442b64b9106b2eca33, type: 3}
+  - text: 'This gives us this graph. '
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 0aebfa111ded8474297024af818860ee, type: 3}
+  - text: 'Now try yourself to trun this map into a graph. '
+    hasOptions: 0
+    options: []
+    hasGraphic: 0
+    graphic: {fileID: 0}
+  nextDialogue: {fileID: 0}
+  canExit: 0

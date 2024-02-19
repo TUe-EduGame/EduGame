@@ -1,0 +1,168 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac38ed0d2236dc4982a36a95d5f36aa, type: 3}
+  m_Name: DFSExplaination1
+  m_EditorClassIdentifier: 
+  lines:
+  - text: 'If you want to explore a graph, you can use DFS. '
+    hasOptions: 0
+    options: []
+    hasGraphic: 0
+    graphic: {fileID: 0}
+  - text: 'With DFS, you systematically explore a graph, and then return back to
+      the start. '
+    hasOptions: 0
+    options: []
+    hasGraphic: 0
+    graphic: {fileID: 0}
+  - text: 'Lets consider this graph to see how DFS works. '
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 6005869e30a9b584a8071dd2e9d59b05, type: 3}
+  - text: 'Lets assume that we start in vertex S. '
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: c9d5c9a3ec9a86b40b83a580ec6cec10, type: 3}
+  - text: 'We will start by exploring one of the neighbors of S, say A. '
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: afd7d40afcc98504baf4b082793dc21e, type: 3}
+  - text: 'Then we continue by exploring the neighbors of A, lets start with C. '
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 2aed47bac73049742a3d08d3bdb0b97f, type: 3}
+  - text: 'We continue like this, exploring new neighbors until we find a vertex
+      that has no unexplored neighbors. '
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 2aed47bac73049742a3d08d3bdb0b97f, type: 3}
+  - text: 'So now we find H, but H has no unexplored neighbors. '
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 529a0e28ee67f094b810cd3686d26961, type: 3}
+  - text: 'Then we go back to the vertex that found H, C. '
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 78837b3cd3094674dae9688aebf93dc5, type: 3}
+  - text: 'As C also has no unexplored neighbors, we go further back to A. '
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: a11c34962d419e1498407680ff126172, type: 3}
+  - text: 'A does have an unexplored neighbor, D. '
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 6b74e7d7ee0edc8499d8cae4afb37640, type: 3}
+  - text: Again, we cannot continue, so we go back up to A
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: f82df53b10396d64788cbb2a9f99870f, type: 3}
+  - text: 'and S. '
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: fc6227d7b7c0a204ab0fa201747a6d35, type: 3}
+  - text: 'But we have not yet explored the entire graph, as S still has unexplored
+      neighbor B. '
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: dc604e1e1a114c64490ef8c1f32a9971, type: 3}
+  - text: 'B has three neighbors, so we need to choose one, lets start with G. '
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 292a21fe89f77ab4fa2f71c1a7d2ee49, type: 3}
+  - text: 'G has two neighbors, so we again need to choose one to start with, lets
+      take J. '
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 97daf413db66bee4bab1eb7dac29f63f, type: 3}
+  - text: 'As J has no unexplored neighbors, we go back to G. '
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: a398a8ddfdb31304b8f5a5f004aa8c9e, type: 3}
+  - text: And then down to I
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 6f36d248ae3971f46ad6282aba7e00a6, type: 3}
+  - text: and then T
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: af3adb042305e8340b76b58ba4641bb3, type: 3}
+  - text: and then F.
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 0c6bbcd5c2bce3044b2916178e615488, type: 3}
+  - text: Now F has no unexplored neighbors, as we have already visited B, so we
+      go back to the vertex that found F, which is T.
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: e8bc47c72781ec94282f1e4afd5e0edf, type: 3}
+  - text: As T also has no unvisited neighbors, we go back to I
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 0baf2f2b19a967c4680a94e05b7efa88, type: 3}
+  - text: and G
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: f4a3643644ded2b469ecdfffe8938136, type: 3}
+  - text: and B.
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 9f071648dd8e67e4098afe28e19dfe32, type: 3}
+  - text: B still has one unexplored neighbor E.
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 0082a55e0dc9b5f4fb73e8639773b741, type: 3}
+  - text: As E has no unexplored neighbors, we go back to B
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 63a5da53de761ee40b6583e0be44a018, type: 3}
+  - text: 'and then to S. '
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 1c8f2c6467d7352419ac5f46be65de5a, type: 3}
+  - text: 'As S has no unexplored neighbors, and we started in S, we have explored
+      the entire graph. '
+    hasOptions: 0
+    options: []
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 1c8f2c6467d7352419ac5f46be65de5a, type: 3}
+  - text: 'To test your understanding of DFS, try the next game. '
+    hasOptions: 0
+    options: []
+    hasGraphic: 0
+    graphic: {fileID: 0}
+  nextDialogue: {fileID: 0}
+  canExit: 0
