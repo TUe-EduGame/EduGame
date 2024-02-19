@@ -2389,7 +2389,7 @@ GameObject:
   - component: {fileID: 1132634860}
   - component: {fileID: 1132634859}
   m_Layer: 8
-  m_Name: LilypadNPC
+  m_Name: StartNPC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2407,7 +2407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39c17f7cce2fcc54f91e6c854a6e1f26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameNPC: LilyPadNPC
+  nameNPC: Lily
   dialogue: {fileID: 11400000, guid: 9b4e55f06c820d5499d545b034a6fb42, type: 2}
   triggerDialogueOnStart: 1
   dialogueStarted: 0
@@ -3596,6 +3596,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1595288116}
   m_CullTransparentMesh: 1
+--- !u!1 &1600254678
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1600254680}
+  - component: {fileID: 1600254679}
+  m_Layer: 8
+  m_Name: WinNPC
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1600254679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600254678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39c17f7cce2fcc54f91e6c854a6e1f26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameNPC: Lily
+  dialogue: {fileID: 11400000, guid: 9cd600d3be1b2f748a2bd9d4a1e3f96d, type: 2}
+  triggerDialogueOnStart: 1
+  dialogueStarted: 0
+  progress: 0
+--- !u!4 &1600254680
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600254678}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.5, y: 21.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1638525839
 GameObject:
   m_ObjectHideFlags: 0
@@ -3662,6 +3711,7 @@ MonoBehaviour:
   leftNPCImg: {fileID: 1673129126}
   rightNPCImg: {fileID: 1333289177}
   optionsPanel: {fileID: 1396220978}
+  graphics: {fileID: 0}
   buttonClick: {fileID: 8300000, guid: 6166dec5f3b5d784eab9a50e91881658, type: 3}
 --- !u!82 &1638525842
 AudioSource:
@@ -5043,5 +5093,6 @@ SceneRoots:
   - {fileID: 1509711180}
   - {fileID: 1642996838}
   - {fileID: 1132634860}
+  - {fileID: 1600254680}
   - {fileID: 1511307305}
   - {fileID: 23015414}

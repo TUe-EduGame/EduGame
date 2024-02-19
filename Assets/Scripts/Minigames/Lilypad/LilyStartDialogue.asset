@@ -22,6 +22,8 @@ MonoBehaviour:
       nextDialogue: {fileID: 0}
     - text: 
       nextDialogue: {fileID: 0}
+    hasGraphic: 0
+    graphic: {fileID: 0}
   - text: The roots show which lilypads are connected. Don't jump on the wrong lilypad
       or you'll fall in the water!
     hasOptions: 0
@@ -32,6 +34,8 @@ MonoBehaviour:
       nextDialogue: {fileID: 0}
     - text: 
       nextDialogue: {fileID: 0}
+    hasGraphic: 0
+    graphic: {fileID: 0}
   - text: Good luck!
     hasOptions: 0
     options:
@@ -41,5 +45,7 @@ MonoBehaviour:
       nextDialogue: {fileID: 0}
     - text: Bad
       nextDialogue: {fileID: 0}
+    hasGraphic: 0
+    graphic: {fileID: 0}
   nextDialogue: {fileID: 0}
   canExit: 1

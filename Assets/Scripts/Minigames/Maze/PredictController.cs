@@ -186,6 +186,8 @@ public class PredictController : MonoBehaviour
         bullet.AllowMovement(false);
         if (win) {
             monster.Die();
+            GameObject winNPC = GameObject.Find("EndNPC");
+            winNPC.GetComponent<NPC>().Interact();
         } else {
             // Start raging animation and activate deathscreen
             monster.SetRage(true);

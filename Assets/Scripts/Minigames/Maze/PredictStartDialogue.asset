@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dac38ed0d2236dc4982a36a95d5f36aa, type: 3}
-  m_Name: PredictDialogue
+  m_Name: PredictStartDialogue
   m_EditorClassIdentifier: 
   lines:
   - text: 'This is a DFS: a Dumb Fiendish Stalker.'
