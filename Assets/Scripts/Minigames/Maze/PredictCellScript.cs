@@ -14,7 +14,7 @@ public class PredictCellScript : MonoBehaviour
     private Vector3 center;
     public int id;
     public List<int> adj;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +23,7 @@ public class PredictCellScript : MonoBehaviour
         try
         {
             controller = obj.GetComponent<PredictController>();
+            controller.restart.AddListener(PassAdj);
         }
         catch (NullReferenceException)
         {
@@ -30,17 +31,7 @@ public class PredictCellScript : MonoBehaviour
         }
 
         // Give controller adjacency list
-        foreach (int i in adj)
-        {
-            try
-            {
-                controller.AddNeighbor(id, i);
-            }
-            catch (NullReferenceException)
-            {
-                throw new Exception("controller is null\n");
-            }
-        }
+        PassAdj();
 
         // Find sprite renderer
         try
@@ -72,14 +63,19 @@ public class PredictCellScript : MonoBehaviour
         controller.Click(id);
     }
 
-    // Shrinks the object to the targetScale
-    public IEnumerator Shrink(Vector3 targetScale)
+    // Passes this cell's adjacency list to the controller
+    private void PassAdj()
     {
-        while ((targetScale - transform.localScale).sqrMagnitude > Mathf.Epsilon)
+        foreach (int i in adj)
         {
-            transform.localScale = Vector3.MoveTowards(transform.localScale, targetScale, scaleSpeed * Time.deltaTime);
-            yield return null;
+            try
+            {
+                controller.AddNeighbor(id, i);
+            }
+            catch (NullReferenceException)
+            {
+                throw new Exception("Controller is null!");
+            }
         }
     }
-
 }

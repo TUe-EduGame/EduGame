@@ -6,6 +6,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UIElements;
 
@@ -19,20 +20,17 @@ public class PredictController : MonoBehaviour
     private Vector3[] pos;
     // The number of nodes in this graph. Note that it includes cell 0 to make ids match indices
     public int nrOfCells;
-    // Indices of points where the player is asked to make a decision
-    public List<int> decisions = new List<int>();
-    // For each checkpoint, state stores whether it's a checkpoint when it's unopened (0), opened (1) or completed (2)
-    public List<int> states = new List<int>();
     // The cell that the monster is in/is moving towards
     private int current;
-    // The cell that the player is shooting at
-    private int target;
     // Whether the player's last guess was correct
     private bool correct = false;
     private PredictMonsterScript monster;
     private PredictBulletScript bullet;
     // Keeps track of the adjacencies of all the cells
     private AdjacencyList adj;
+    private GameObject deathScreen;
+    // An event that signals the game has restarted
+    public UnityEvent restart;
 
     void Awake() {
         adj = new AdjacencyList(nrOfCells);
@@ -47,8 +45,10 @@ public class PredictController : MonoBehaviour
     void Start()
     {
         monster = FindObjectOfType<PredictMonsterScript>();
+        monster.shrunk.AddListener(SetDeathScreen);
         bullet = FindObjectOfType<PredictBulletScript>();
         bullet.OnBulletHit.AddListener(Hit);
+        deathScreen = GameObject.Find("Canvas").transform.GetChild(2).gameObject;
     }
 
     // Update is called once per frame
@@ -57,11 +57,30 @@ public class PredictController : MonoBehaviour
         
     }
 
+    // Restarts the game
+    public void Restart() {
+        // Reset the variables used to keep track of the progress
+        adj = new AdjacencyList(nrOfCells);
+        for (int i = 0; i < nrOfCells; i++) {
+            opened[i] = false;
+            completed[i] = false;
+        }
+        opened[0] = true;
+        current = 0;
+        correct = false;
+
+        // Reset the bullet, monster and death screen to their original state
+        bullet.Restart();
+        monster.Restart();
+        UnSetDeathScreen();
+        // Ensures all cells enter their adjacency lists again
+        restart.Invoke();
+    }
+
     // Called by a cell if it is clicked
     public void Click(int target) {
         // Only allow clicking if the monster isn't moving
         if (!monster.IsMoving()) {
-            this.target = target;
             // Moving to @target is allowed if:
             // It is adjacent to @current
             if (adj.CheckNeighbor(current, target)) {
@@ -95,7 +114,7 @@ public class PredictController : MonoBehaviour
     }
 
     // Moves the monster to cell @target
-    public void MoveTo(int target) {
+    private void MoveTo(int target) {
         // Schedule a move to the target
         monster.AddMove(pos[target]);
 
@@ -110,7 +129,7 @@ public class PredictController : MonoBehaviour
     }
 
     // Moves the monster using dfs until a decision point is reached
-    public void Dfs(int start, int stepsTaken) {
+    private void Dfs(int start, int stepsTaken) {
         List<int> neighbors = new List<int>(adj.GetNeighbors(start));
         // After 3 steps a decision point is reached
         // If there are multiple options then, randomly pick one step further
@@ -139,16 +158,16 @@ public class PredictController : MonoBehaviour
                     neighbors.Remove(id);
                 }
             }
+            // If the monster went back to 0, the player hasn't killed it in time so the player lost
+            if (completed[1]) {
+                End(false);
+            }
         }   
     }
 
     // Called when the bullet hit its target
     public void Hit() {
         bullet.Reset();
-        // If the monster went back to 0, the player hasn't killed it in time so the player lost
-        if (completed[1]) {
-            End(false);
-        }
         // If the monster is out of lives, the player has killed it and won
         if (monster.Lives() <= 0) {
             End(true);
@@ -161,14 +180,27 @@ public class PredictController : MonoBehaviour
         
     }
 
-    public void End(bool win) {
+    private void End(bool win) {
         // Disable moving
         monster.allowMovement(false);
-        bullet.allowMovement(false);
+        bullet.AllowMovement(false);
         if (win) {
-            // kill the monster
+            monster.Die();
+            GameObject winNPC = GameObject.Find("EndNPC");
+            winNPC.GetComponent<NPC>().Interact();
         } else {
-            // Make monster destroy something or so
+            // Start raging animation and activate deathscreen
+            monster.SetRage(true);
         }
+    }
+
+    // Activates the death screen
+    public void SetDeathScreen() {
+        deathScreen.SetActive(true);
+    }
+    
+    // Deactivates the death screen
+    public void UnSetDeathScreen() {
+        deathScreen.SetActive(false);
     }
 }

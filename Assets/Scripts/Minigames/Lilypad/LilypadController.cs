@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class LilypadController : MonoBehaviour
 {
@@ -16,12 +17,16 @@ public class LilypadController : MonoBehaviour
         new Vector3(0.5f,2.5f,0)
     }; 
     private int nrOfLilypads = 7;
-    private Vector3 scale = new Vector3(1.0f, 1.0f, 1.0f);
+    private Vector3 scale = new Vector3(1.7f, 1.7f, 1.7f);
     private List<int>[] adj;
     private bool[] accessible;
     private bool[] visited;
     private int current;
+    // Whether movement is currently allowed
+    private bool allowedToMove;
     private LilypadCharacterScript character;
+    private GameObject deathscreen;
+    public UnityEvent restart;
 
     // Returns the position of lilypad id
     public Vector3 GetPosition(int id) {
@@ -40,26 +45,42 @@ public class LilypadController : MonoBehaviour
 
     // Moves the character to the target lilypad
     // If this is not a legal move, it sinks both the target and the character
-    public void MoveTo(int target) {        
-        if (adj[current].Contains(target)) {
-            if (visited[target] == false || adj[current].Count == 1) {
-                accessible[target] = true;
-                accessible[current] = false;
-                adj[current].Remove(target);
-                visited[current] = true;
-                if (!adj[current].Any()) {
-                    // maybe change the color?
+    public void MoveTo(int target) {    
+        if (allowedToMove) {
+            if (adj[current].Contains(target)) {
+                if (visited[target] == false || adj[current].Count == 1) {
+                    accessible[target] = true;
+                    accessible[current] = false;
+                    adj[current].Remove(target);
+                    visited[current] = true;
+                    if (!adj[current].Any()) {
+                        // maybe change the color?
+                    }
+                    current = target;
                 }
-                current = target;
+            } else {
+                accessible[target] = false;
             }
-        } else {
-            accessible[target] = false;
-        }
-        StartCoroutine(character.Move(position[target]));
+            StartCoroutine(character.Move(position[target]));
+        }          
     }
 
-    public void Shrink() {
+    public bool Finished() {
+        return adj[current].Count == 0;
+    }
+
+    // Called when the player has visited all lilypads and came back
+    public void Win() {
+        allowedToMove = false;
+        GameObject winNPC = GameObject.Find("WinNPC");
+        winNPC.GetComponent<NPC>().Interact();
+    }
+
+    // Called when the player has failed, tragically
+    public void Lose() {
+        allowedToMove = false;
         StartCoroutine(character.Shrink(new Vector3(0.001f, 0.001f, 0.001f)));
+        deathscreen.SetActive(true);
     }
 
     // This function is called when the object becomes enabled and active.
@@ -68,6 +89,8 @@ public class LilypadController : MonoBehaviour
     }
 
     // Start is called before the first frame update
+    // I'm very sorry that so much of this is hard-coded :( 
+        // Rest assured that I did better in the Maze game :) 
     void Start() {
         adj = new List<int>[nrOfLilypads];
         adj[0] = new List<int> {1,2};
@@ -82,6 +105,27 @@ public class LilypadController : MonoBehaviour
         visited = new bool[nrOfLilypads];
         current = 0;
         character = FindObjectOfType<LilypadCharacterScript>();
+        deathscreen = GameObject.Find("Canvas").transform.GetChild(2).gameObject;
+        allowedToMove = true;
+    }
+
+    // Called to reset the data to be able to start a new game
+    public void Reset() {
+        adj[0] = new List<int> {1,2};
+        adj[1] = new List<int> {0,3,4};
+        adj[2] = new List<int> {0,5};
+        adj[3] = new List<int> {1,6};
+        adj[4] = new List<int> {1};
+        adj[5] = new List<int> {2};
+        adj[6] = new List<int> {3};
+        accessible = new bool[nrOfLilypads];
+        accessible[0] = true;
+        visited = new bool[nrOfLilypads];
+        current = 0;
+        restart.Invoke();
+        character.Reset();
+        deathscreen.SetActive(false);
+        allowedToMove = true;
     }
 
     // Update is called once per frame

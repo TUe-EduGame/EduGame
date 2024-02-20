@@ -15,7 +15,13 @@ public class LilypadScript : MonoBehaviour
     void Start()
     {
         controller = FindObjectOfType<LilypadController>();
+        controller.restart.AddListener(Reset);
         transform.position = controller.GetPosition(id);
+        transform.localScale = controller.GetScale();
+    }
+
+    // Called to reset a lilypad to its original size
+    public void Reset() {
         transform.localScale = controller.GetScale();
     }
 
@@ -41,7 +47,11 @@ public class LilypadScript : MonoBehaviour
         if (!controller.isAccessible(id))
         {
             StartCoroutine(Shrink(new Vector3(0.001f, 0.001f, 0.001f)));
-            controller.Shrink();
+            controller.Lose();
+        } else {
+            if (controller.Finished()) {
+                controller.Win();
+            }
         }
     }
 

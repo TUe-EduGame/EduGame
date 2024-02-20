@@ -1,16 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PredictMonsterScript : MonoBehaviour
 {
-    [SerializeField] private int lives = 10;
-    public float[] InitialPosition = new float[3];
-    public float moveTime = 2.0f;
-    public float scaleSpeed = 5.0f;
+    private Animator animator;
+    // The number of lives the monster starts with
+    [SerializeField] private int initialLives = 10;
+    // The number of lives the monster currently has
+    private int lives;
+    [SerializeField] private float[] initialPosition = new float[3];
+    [SerializeField] private float[] finalPosition = new float[3];
+    [SerializeField] private float[] initialScale = new float[3];
+    [SerializeField] private float[] finalScale = new float[3];
+    [SerializeField] private float moveTime = 2.0f;
+    [SerializeField] private float scaleSpeed = 5.0f;
     private bool isMoving = false;
     private Queue<Vector3> queue = new Queue<Vector3>();
     private bool allowedToMove = true;
+    private bool rage = false;
+    private SpriteRenderer spriteRenderer;
+    // Event that notifies other scripts that the monster finished changing its scale
+    public UnityEvent shrunk;
 
     // This function is called when the object becomes enabled and active.
     void Awake()
@@ -21,7 +33,23 @@ public class PredictMonsterScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = new Vector3(InitialPosition[0], InitialPosition[1], InitialPosition[2]);
+        transform.position = new Vector3(initialPosition[0], initialPosition[1], initialPosition[2]);
+        transform.localScale = new Vector3(initialScale[0], initialScale[1], initialScale[2]);
+        animator = GetComponent<Animator>();
+        animator.SetFloat("Alive", 1);
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        lives = initialLives;
+    }
+
+    // Puts the monster back at its starting position, scale and animation
+    public void Restart() {
+        transform.position = new Vector3(initialPosition[0], initialPosition[1], initialPosition[2]);
+        transform.localScale = new Vector3(initialScale[0], initialScale[1], initialScale[2]);
+        animator.SetFloat("Alive", 1);
+        // Reset the variables keeping track of the monster's state
+        allowMovement(true);
+        lives = initialLives;
+        rage = false;
     }
 
     // Update is called once per frame
@@ -35,20 +63,19 @@ public class PredictMonsterScript : MonoBehaviour
     }
 
     // Moves the object to the position targetPos
-    private IEnumerator Move(Vector3 targetPos)
-    {
-        if (allowedToMove)
-        {
-            isMoving = true;
-            float moveSpeed = Vector3.Distance(transform.position, targetPos) / moveTime;
+    private IEnumerator Move(Vector3 targetPos) {
+        isMoving = true;
+        float moveSpeed = Vector3.Distance(transform.position, targetPos) / moveTime;
 
-            while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
-                yield return null;
-            }
+        while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon) {
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
+            yield return null;
+        }
 
-            isMoving = false;
+        isMoving = false;
+        if (rage && queue.Count == 0) {
+            SetRage(false);
+            Rage();
         }
     }
 
@@ -60,6 +87,7 @@ public class PredictMonsterScript : MonoBehaviour
             transform.localScale = Vector3.MoveTowards(transform.localScale, targetScale, scaleSpeed * Time.deltaTime);
             yield return null;
         }
+        shrunk.Invoke();
     }
 
     // Called upon a collision
@@ -73,9 +101,10 @@ public class PredictMonsterScript : MonoBehaviour
     }
 
     // Adds a new move to the movement queue
-    public void AddMove(Vector3 target)
-    {
-        queue.Enqueue(target);
+    public void AddMove(Vector3 target) {
+        if (allowedToMove) {
+            queue.Enqueue(target);            
+        }
     }
 
     // Returns whether the monster is currently moving
@@ -95,5 +124,38 @@ public class PredictMonsterScript : MonoBehaviour
     public void allowMovement(bool allowed)
     {
         allowedToMove = allowed;
+    }
+
+    // Sets whether the monster can rage
+    public void SetRage(bool toRage) {
+        rage = toRage;
+    }
+
+    // Start the dying animation
+    public void Die() {
+        if (lives <= 0) {
+            animator.SetFloat("Alive", 0.5f);
+        } else {
+            Debug.LogWarning("Monster dies when lives > 0");
+        }
+    }
+
+    // Start the dead animation
+    public void Dead() {
+        if (lives <= 0) {
+            animator.SetFloat("Alive", 0);
+        } else {
+            Debug.LogWarning("Monster died when lives = " + lives);
+        }
+    }
+
+    // Start the raging animation
+    private void Rage() {
+        if (lives > 0) {
+            animator.SetFloat("Alive", 1.5f);
+            StartCoroutine(Move(new Vector3(finalPosition[0], finalPosition[1], finalPosition[2])));
+            StartCoroutine(Shrink(new Vector3(finalScale[0], finalScale[1], finalScale[2])));
+            spriteRenderer.sortingOrder = 3;
+        }
     }
 }
