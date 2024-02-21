@@ -104,6 +104,14 @@ public class PlayerMovement : MonoBehaviour
         {
             collider.GetComponent<Interactable>()?.Interact();
         }
+
+        Save();
+    }
+
+    //TODO
+    void StopInteract() 
+    {
+        
     }
 
 

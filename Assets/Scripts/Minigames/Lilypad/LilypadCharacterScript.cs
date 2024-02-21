@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LilypadCharacterScript : MonoBehaviour
 {
@@ -24,8 +25,10 @@ public class LilypadCharacterScript : MonoBehaviour
 
     // Called to reset the character to its original position
     public void Reset() {
-        transform.position = new Vector3(initialPosition[0], initialPosition[1], initialPosition[2]);
-        transform.localScale = new Vector3(initialScale[0], initialScale[1], initialScale[2]);
+        // TODO
+        // transform.position = new Vector3(initialPosition[0], initialPosition[1], initialPosition[2]);
+        // transform.localScale = new Vector3(initialScale[0], initialScale[1], initialScale[2]);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     // Update is called once per frame

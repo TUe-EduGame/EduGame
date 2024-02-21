@@ -14,4 +14,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Overworld.unity
     guid: d91e72cf78a1055498c9c4a6dd7b805d
+  - enabled: 1
+    path: Assets/Scenes/LilypadScene.unity
+    guid: 9e1fe3a5ea240b94e841d1c3b1c82fa7
+  - enabled: 1
+    path: Assets/Scenes/BuildAGraphScene.unity
+    guid: 7bd6d8d43fc7efa41ad8f99aceb6eb20
+  - enabled: 1
+    path: Assets/Scenes/PredictScene.unity
+    guid: 4f3b4b67dd51fd046adea3aab2e726d1
   m_configObjects: {}
