@@ -21,8 +21,12 @@ public class EdgeController : MonoBehaviour
     //If all vertices are placed, move edge to its location
     public void Move(Vector3 targetPos) 
     {
-        if(controller.counter == controller.numberOfVertices) 
+        if(controller.vertexCounter == controller.numberOfVertices) 
         {
+            if(targetPos != transform.position) 
+            {
+                controller.EdgeCounterUpdate();
+            }
             transform.position = Vector3.MoveTowards(transform.position, targetPos, Vector3.Distance(transform.position, targetPos));
         }
     }

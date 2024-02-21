@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac38ed0d2236dc4982a36a95d5f36aa, type: 3}
+  m_Name: BuildAGraphEnd
+  m_EditorClassIdentifier: 
+  lines:
+  - text: Well done!
+    hasOptions: 0
+    options: []
+    hasGraphic: 0
+    graphic: {fileID: 0}
+  - text: Now that you know what a graph is, it is time to start learning graph algoritms
+    hasOptions: 0
+    options: []
+    hasGraphic: 0
+    graphic: {fileID: 0}
+  nextDialogue: {fileID: 0}
+  canExit: 0
