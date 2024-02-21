@@ -16,8 +16,18 @@ public class DragDrop : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public string StringInToolTip;
 
+    private Animator animator;
+
+    private float timerforanim;
+    
+    void Awake() {
+        animator = GetComponent<Animator>();
+    }
+
     void Start() {
         objectInitPos = objectToDrag.transform.position;
+        timerforanim = 0;
+        
     }
 
     public void DragObject() {
@@ -31,9 +41,10 @@ public class DragDrop : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if(Distance < DropDistance) {
             isLocked = true;
             objectToDrag.transform.position = objectDragToPos.transform.position;
+            animator.SetBool("IsLocked", isLocked);
         }
         else {
-            objectToDrag.transform.position = objectInitPos;
+            objectToDrag.transform.position= objectInitPos;
         }
     }
 
@@ -43,6 +54,11 @@ public class DragDrop : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void OnPointerExit(PointerEventData eventData) {
         ToolTip.HideToolTip_Static();
     }
+
+    public void killGameObj() {
+        gameObject.SetActive(false);
+    }
+    
     /*public void OnPointerDown(PointerEventData eventData) {
         UnityEngine.Debug.Log("OnPointerDown");
     }
