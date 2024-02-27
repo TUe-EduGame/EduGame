@@ -46,7 +46,7 @@ public class LilypadController : MonoBehaviour
     // Moves the character to the target lilypad
     // If this is not a legal move, it sinks both the target and the character
     public void MoveTo(int target) {    
-        if (allowedToMove) {
+        if (allowedToMove && !character.IsMoving()) {
             if (adj[current].Contains(target)) {
                 if (visited[target] == false || adj[current].Count == 1) {
                     accessible[target] = true;

@@ -3627,7 +3627,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameNPC: Lily
   dialogue: {fileID: 11400000, guid: 9cd600d3be1b2f748a2bd9d4a1e3f96d, type: 2}
-  triggerDialogueOnStart: 1
+  triggerDialogueOnStart: 0
   dialogueStarted: 0
   progress: 0
 --- !u!4 &1600254680
