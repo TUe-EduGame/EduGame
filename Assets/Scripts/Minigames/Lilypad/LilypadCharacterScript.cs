@@ -9,7 +9,8 @@ public class LilypadCharacterScript : MonoBehaviour
     // Whether the character is currently moving
     private bool isMoving = false;
     // The position the character starts in
-    [SerializeField] private float[] initialPosition = new float[3];
+    // [SerializeField] private float[] initialPosition = new float[3];
+    private Vector3 initialPosition;
     [SerializeField] private float[] initialScale = new float[3];
 
     // This function is called when the object becomes enabled and active.
@@ -63,6 +64,10 @@ public class LilypadCharacterScript : MonoBehaviour
 
     public bool IsMoving() {
         return isMoving;
+    }
+
+    public void SetInitialPosition(Vector3 position) {
+        initialPosition = position;
     }
 
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -7,18 +8,12 @@ using UnityEngine.Events;
 
 public class LilypadController : MonoBehaviour
 {
-    private Vector3[] position = {
-        new Vector3(-6f,0,0),
-        new Vector3(-3.5f,1.5f,0),
-        new Vector3(-3.5f,-1.5f,0),
-        new Vector3(-1.5f,2.5f,0),
-        new Vector3(-1.5f,0.5f,0),
-        new Vector3(-1.5f,-1.5f,0),
-        new Vector3(0.5f,2.5f,0)
-    }; 
+    private Vector3[] positions;
     private int nrOfLilypads = 7;
+    [SerializeField] private float circleSize = 2;      // the radius of the first circle around the root in Unity coordinates
     private Vector3 scale = new Vector3(1.7f, 1.7f, 1.7f);
-    private List<int>[] adj;
+    private List<int>[] adj;        // holds a copy of the adjacency list of the graph
+    private RadialTree graph;       // holds the graph of lilypads
     private bool[] accessible;
     private bool[] visited;
     private int current;
@@ -28,9 +23,45 @@ public class LilypadController : MonoBehaviour
     private GameObject deathscreen;
     public UnityEvent restart;
 
+    // This function is called when the object becomes enabled and active.
+    void Awake() {
+        // Generate the graph of lilypads
+        graph = new RadialTree("somewhat random with adj", 3, nrOfLilypads, circleSize);
+        positions = graph.GetPositions();
+        adj = graph.GetAdj();
+        // for(int id = 0; id < positions.Count(); id++) {
+        //     Debug.Log( id + " at " + positions[id]);
+        // }
+        // Give the lineConnector the data it needs to draw the edges
+        LineConnector lineConnector = GetComponent<LineConnector>();
+        Debug.Log(lineConnector != null);
+        Debug.Log(graph != null);
+        lineConnector.SetGraph(graph);
+        accessible = new bool[nrOfLilypads];
+        accessible[0] = true;
+        character = FindObjectOfType<LilypadCharacterScript>();
+        character.SetInitialPosition(positions[0]);
+    }
+
+    // Start is called before the first frame update
+    void Start() {
+        // adj = new List<int>[nrOfLilypads];
+        // adj[0] = new List<int> {1,2};
+        // adj[1] = new List<int> {0,3,4};
+        // adj[2] = new List<int> {0,5};
+        // adj[3] = new List<int> {1,6};
+        // adj[4] = new List<int> {1};
+        // adj[5] = new List<int> {2};
+        // adj[6] = new List<int> {3};
+        visited = new bool[nrOfLilypads];
+        current = 0;
+        deathscreen = GameObject.Find("Canvas").transform.GetChild(2).gameObject;
+        allowedToMove = true;
+    }
+    
     // Returns the position of lilypad id
     public Vector3 GetPosition(int id) {
-        return position[id];
+        return positions[id];
     }
 
     // Returns the scale of the lilypads
@@ -61,7 +92,7 @@ public class LilypadController : MonoBehaviour
             } else {
                 accessible[target] = false;
             }
-            StartCoroutine(character.Move(position[target]));
+            StartCoroutine(character.Move(positions[target]));
         }          
     }
 
@@ -83,41 +114,16 @@ public class LilypadController : MonoBehaviour
         deathscreen.SetActive(true);
     }
 
-    // This function is called when the object becomes enabled and active.
-    void Awake() {
-    
-    }
-
-    // Start is called before the first frame update
-    // I'm very sorry that so much of this is hard-coded :( 
-        // Rest assured that I did better in the Maze game :) 
-    void Start() {
-        adj = new List<int>[nrOfLilypads];
-        adj[0] = new List<int> {1,2};
-        adj[1] = new List<int> {0,3,4};
-        adj[2] = new List<int> {0,5};
-        adj[3] = new List<int> {1,6};
-        adj[4] = new List<int> {1};
-        adj[5] = new List<int> {2};
-        adj[6] = new List<int> {3};
-        accessible = new bool[nrOfLilypads];
-        accessible[0] = true;
-        visited = new bool[nrOfLilypads];
-        current = 0;
-        character = FindObjectOfType<LilypadCharacterScript>();
-        deathscreen = GameObject.Find("Canvas").transform.GetChild(2).gameObject;
-        allowedToMove = true;
-    }
-
     // Called to reset the data to be able to start a new game
     public void Reset() {
-        adj[0] = new List<int> {1,2};
-        adj[1] = new List<int> {0,3,4};
-        adj[2] = new List<int> {0,5};
-        adj[3] = new List<int> {1,6};
-        adj[4] = new List<int> {1};
-        adj[5] = new List<int> {2};
-        adj[6] = new List<int> {3};
+        // adj[0] = new List<int> {1,2};
+        // adj[1] = new List<int> {0,3,4};
+        // adj[2] = new List<int> {0,5};
+        // adj[3] = new List<int> {1,6};
+        // adj[4] = new List<int> {1};
+        // adj[5] = new List<int> {2};
+        // adj[6] = new List<int> {3};
+        adj = graph.GetAdj();
         accessible = new bool[nrOfLilypads];
         accessible[0] = true;
         visited = new bool[nrOfLilypads];

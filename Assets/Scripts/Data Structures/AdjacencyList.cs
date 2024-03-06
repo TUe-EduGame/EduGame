@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-class AdjacencyList
+public class AdjacencyList
 {
     // Stores for each node which nodes they are adjacent to
     List<int>[] list;
@@ -58,12 +58,12 @@ class AdjacencyList
         }
     }
 
-    // Checks if @neighbor is in @to's adjacency list
-    public bool CheckNeighbor(int to, int neighbor)
+    // Checks if @neighbor is in @of's adjacency list
+    public bool CheckNeighbor(int of, int neighbor)
     {
         try
         {
-            if (list[to].Contains(neighbor))
+            if (list[of].Contains(neighbor))
             {
                 return true;
             }
@@ -74,7 +74,7 @@ class AdjacencyList
         }
         catch (IndexOutOfRangeException)
         {
-            throw new Exception("Can't check if " + neighbor + " is in adj of " + to + " for AdjacencyList of size " + list.Count());
+            throw new Exception("Can't check if " + neighbor + " is in adj of " + of + " for AdjacencyList of size " + list.Count());
         }
 
     }

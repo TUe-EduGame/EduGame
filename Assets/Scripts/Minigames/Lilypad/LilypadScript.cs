@@ -9,6 +9,7 @@ public class LilypadScript : MonoBehaviour
 {
     public float scaleSpeed = 5f;
     private LilypadController controller;
+    private SpriteRenderer spriteRenderer;
     public int id;
 
     // Start is called before the first frame update
