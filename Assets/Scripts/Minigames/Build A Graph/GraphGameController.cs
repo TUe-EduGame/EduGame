@@ -25,10 +25,28 @@ public class GraphGameController : MonoBehaviour
     public void VertexCounterUpdate()
     {
         vertexCounter ++;
+        if (vertexCounter == numberOfVertices)
+        {
+            HalfWay();
+        }
     }
 
     public void EdgeCounterUpdate()
     {
         edgeCounter ++;
+        if (edgeCounter == numberOfEdges)
+        {
+            Win();
+        }
     }
+
+    public void HalfWay() {
+        GameObject winNPC = GameObject.Find("MiddleNPC");
+        winNPC.GetComponent<NPC>().Interact();
+    }
+    public void Win() {
+        GameObject winNPC = GameObject.Find("EndNPC");
+        winNPC.GetComponent<NPC>().Interact();
+    }
+
 }

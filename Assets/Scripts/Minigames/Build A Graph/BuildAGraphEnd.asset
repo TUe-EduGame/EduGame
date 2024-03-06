@@ -24,4 +24,4 @@ MonoBehaviour:
     hasGraphic: 0
     graphic: {fileID: 0}
   nextDialogue: {fileID: 0}
-  canExit: 0
+  canExit: 1
