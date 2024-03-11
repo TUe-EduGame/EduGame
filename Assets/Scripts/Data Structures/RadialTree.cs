@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RadialTree
@@ -12,6 +13,7 @@ public class RadialTree
     private AdjacencyList circles;      // an adjacency matrix, where each "node" represents a circle
                                             // so each adjacency list contains the ids of the nodes in that circle
     private AdjacencyList adj;      // the actual adjacency matrix of the graph
+    private Vector3[] p;        // the positions of the vertices
     private int root = 0;               // the id of the node that is the root of this tree
 
     // Creates a radial tree with a set number of circles around the root
@@ -42,13 +44,15 @@ public class RadialTree
                 List<int> parents = circles.GetNeighbors(i - 1);
                 for (int j = 1; j <= parents.Count; j++) {
                     int parent = parents[j - 1];
-                    // generate a random number of children (between 0 and 3, where average degree for each layer must be roughly 2)
+                    // generate a random number of children (between 0 and 3, where average degree for each layer must be around 2)
                     int offspring = 0;
                     do {
-                        offspring = Random.Range(0, 3); // TODO: randomize
+                        offspring = Random.Range(0, 3);
                         totalOffspring += offspring;
                         avgOffspring = totalOffspring / j;
-                    } while (avgOffspring < 1 || avgOffspring > 2.5);
+                        totalOffspring -= offspring;
+                    } while (avgOffspring < 1.5 || avgOffspring > 3);
+                    totalOffspring += offspring;
                     // Debug.Log("generating " + offspring + " children of " + parent);
                     for (int k = 0; k < offspring && id < nrOfNodes; k++) {
                         // connect each child to its parent
@@ -58,8 +62,6 @@ public class RadialTree
                         id++;
                     }
                 }
-                // calculate spots
-                Vector3[] positions = GetPositions(totalOffspring, i);
                 // starting at top parent, divide children over the circle
                 for (int j = 0; j < parents.Count; j++) {
                     List<int> children = adj.GetNeighbors(parents[j]);
@@ -76,14 +78,15 @@ public class RadialTree
                     }
                 }
             }
+            CalcPosition();
         }
     }
 
-    // Returns the position of all nodes in the tree
-    public Vector3[] GetPositions() {
-        Vector3[] positions = new Vector3[nrOfNodes];
+    // Calculates the position of all nodes in the tree
+    public void CalcPosition() {
+        p = new Vector3[nrOfNodes];
         // place the root in the middle
-        positions[GetRoot()] = new Vector3(0, 0, 0);
+        p[GetRoot()] = new Vector3(0, 0, 0);
         
         // for each circle, place the nodes that are in it evenly over the circle
         for (int i = 1; i <= nrOfCircles; i++) {
@@ -98,12 +101,66 @@ public class RadialTree
                     float x = radius * Mathf.Cos(degreePerNode * node * Mathf.Deg2Rad);
                     float y = radius * Mathf.Sin(degreePerNode * node * Mathf.Deg2Rad);
                     // Debug.Log(i + " at " + new Vector3(x, y, 0));
-                    positions[nodes[node]] = new Vector3(x, y, 0);
+                    p[nodes[node]] = new Vector3(x, y, 0);
                 }
             }
-            
         }
-        return positions;
+        // Use force-directed layout to space the nodes out nicely over the screen
+        ForceDirected(1000, 2, 1, 2);  // TODO: figure out numbers
+    }
+
+    public void ForceDirected(int maxIterations, float cRep, float cSpring, float length) {
+        // for(int i = 0; i < nrOfNodes; i++) {
+        //     Debug.Log(i + " at " + p[i]);
+        // }
+        Vector3[,] fRep = new Vector3[nrOfNodes,nrOfNodes];     // the repulsive force between all vertices
+        Vector3[,] fSpring = new Vector3[nrOfNodes,nrOfNodes];  
+        Vector3[,] fAttr = new Vector3[nrOfNodes, nrOfNodes];   // the attractive force between connected vertices
+        // note that since I don't have the number of edges, I just make it between all nodes and make it equal to fRep for nodes that are disconnected
+        Vector3[] fU = new Vector3[nrOfNodes];                  // displacement vector
+        int t = 1;      // number of repetitions
+        while (t < maxIterations) {
+            for (int u = 0; u < nrOfNodes; u++) {
+                for (int v = 0; v < nrOfNodes; v++) {
+                    if (u != v) {
+                        // Calculate a unit vector of the direction from v to u
+                        Vector3 direction = (p[u] - p[v]).normalized;
+                        // Debug.Log(direction + " direction from " + u + " to " + v);
+                        // Calculate the repulsive force on u from v
+                        float distance = Vector3.Distance(p[u], p[v]);
+                        // Debug.Log(distance + " distance from " + u + " to " + v);
+                        // if(distance == 0 && u != v) {
+                        //     Debug.Log(u + ": " + p[u] + " " + v + ": " + p[v]);
+                        // }
+                        fRep[u,v] = cRep / Mathf.Pow(distance, 2) * direction;
+                        // Debug.Log(fRep[u,v] + " fRep from " + u + " to " + v);
+                        // Debug.Log(cRep / Mathf.Pow(distance, 2) + " cRep / dis^2 from " + u + " to " + v);
+                        // Calculate the spring force on u from v
+                        if (NeighborOf(v, u)) {
+                            fSpring[u,v] = cSpring * Mathf.Log(distance / length) * -1 * direction;
+                            // Debug.Log(fSpring[u,v] + " (u - v) from " + u + " to " + v);  
+                        } else {
+                            fSpring[u,v] = fRep[u,v];
+                            // Debug.Log(fSpring[u,v] + " (u !- v) from " + u + " to " + v);   
+                        }                        
+                        // Calculate the attractive force on u from v
+                        // Supposed to be 0 if they're not neighbors, which is why fSpring = fRep in that case
+                        fAttr[u,v] = fSpring[u,v] - fRep[u,v];
+                        fU[u] += fRep[u,v] + fAttr[u,v];
+                    }                    
+                }
+            }
+            // Change the positions based on the force
+            for (int u = 0; u < nrOfNodes; u++) {
+                p[u] += Time.deltaTime * fU[u];
+            }
+            t++;
+        }
+    }
+
+    // Returns the position of all nodes in the tree
+    public Vector3[] GetPositions() {
+        return p;
     }
 
     // Returns the available positions for @children in @circle

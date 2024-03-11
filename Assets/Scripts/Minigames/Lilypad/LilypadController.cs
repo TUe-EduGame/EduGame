@@ -34,8 +34,6 @@ public class LilypadController : MonoBehaviour
         // }
         // Give the lineConnector the data it needs to draw the edges
         LineConnector lineConnector = GetComponent<LineConnector>();
-        Debug.Log(lineConnector != null);
-        Debug.Log(graph != null);
         lineConnector.SetGraph(graph);
         accessible = new bool[nrOfLilypads];
         accessible[0] = true;
