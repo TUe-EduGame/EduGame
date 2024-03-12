@@ -145,5 +145,6 @@ public class DialogueUI : MonoBehaviour
     public void CloseDialogue()
     {
         gameObject.SetActive(false);
+        npc.EndDialogue();
     }
 }
