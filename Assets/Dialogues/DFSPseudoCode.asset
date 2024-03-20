@@ -23,43 +23,50 @@ MonoBehaviour:
     hasOptions: 0
     options: []
     hasGraphic: 1
-    graphic: {fileID: 21300000, guid: 54c0cd2855e0dfb4db906e0105390787, type: 3}
-  - text: 
+    graphic: {fileID: 21300000, guid: f915df458967a214fa3132cf21402285, type: 3}
+  - text: 'The input of the algorithm are the graph G=(V,E), with vertices V and
+      edges E, and the starting vertex s. '
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
-  - text: 
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 43a895d2af4ed4a40a2316b56422d7e7, type: 3}
+  - text: 'The output of the algorithm are the predecessor labels for all vertices
+      in V. '
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
-  - text: 
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 9ceb417662d85074b81a42e35609323f, type: 3}
+  - text: 'For Q, we use a queue datastructure, because this enables us to easily
+      access the element that has last been added to Q, the vertex that is last in
+      Q. It also easily lets us add elements to the end of Q. '
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
-  - text: 
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 2da6decaa8b4dec468ba211ab7d51bb2, type: 3}
+  - text: 'This enables us to easily keep track of which vertex to explore next. '
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
-  - text: 
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 2da6decaa8b4dec468ba211ab7d51bb2, type: 3}
+  - text: "Here we initialize the predecessor and visited labels. \nWe use the visited
+      label to keep track of which vertices have already been found and therefore
+      do not need to be added to Q again. "
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
-  - text: 
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 5d5fa529504913e47a16f938602960b3, type: 3}
+  - text: Here we check if the vertex w has already been found before
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
-  - text: 
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 2125a1ce74eaab34cbd15b66148927b7, type: 3}
+  - text: 'Here we update the labels of vertex w. '
     hasOptions: 0
     options: []
-    hasGraphic: 0
-    graphic: {fileID: 0}
-  - text: 
+    hasGraphic: 1
+    graphic: {fileID: 21300000, guid: 741d4fefc783b5044adfcd1c38b9e221, type: 3}
+  - text: 'Now that you have seen the pseudo code of DFS, it is time to test your
+      understanding.  '
     hasOptions: 0
     options: []
     hasGraphic: 0
