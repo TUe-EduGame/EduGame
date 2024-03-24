@@ -14,6 +14,7 @@ public class RadialTree
                                             // so each adjacency list contains the ids of the nodes in that circle
     private AdjacencyList adj;      // the actual adjacency matrix of the graph
     private Vector3[] p;        // the positions of the vertices
+    private Vector3[] borders = new Vector3[2];  // The borders of the camera view (0: top left, 1: bottom right)
     private int root = 0;               // the id of the node that is the root of this tree
 
     // Creates a radial tree with a set number of circles around the root
@@ -23,6 +24,12 @@ public class RadialTree
         this.nrOfNodes = nrOfNodes;
         this.circleSize = circleSize;
         adj = new AdjacencyList(nrOfNodes);
+        // Get the camera borders
+        Camera mainCamera = Camera.main;
+        mainCamera.orthographicSize -= 1;    // Make the field of view slightly smaller such that the lilypads won't be half offscreen
+        borders[0] = mainCamera.ViewportToWorldPoint(new Vector3(0, 1, mainCamera.nearClipPlane));  // top left
+        borders[1] = mainCamera.ViewportToWorldPoint(new Vector3(1, 0, mainCamera.nearClipPlane));  // bottom right
+        
         // Add the root to the 0th circle
         circles.AddNeighbor(0, root);
         if (mode.Equals("deterministic without adj")) {
@@ -47,7 +54,7 @@ public class RadialTree
                     // generate a random number of children (between 0 and 3, where average degree for each layer must be around 2)
                     int offspring = 0;
                     do {
-                        offspring = Random.Range(0, 3);
+                        offspring = Random.Range(0, 5);
                         totalOffspring += offspring;
                         avgOffspring = totalOffspring / j;
                         totalOffspring -= offspring;
@@ -79,6 +86,9 @@ public class RadialTree
                 }
             }
             CalcPosition();
+            mainCamera.orthographicSize += 1;
+        } else if (mode.Equals("randomly more nodes")) {
+
         }
     }
 
@@ -106,13 +116,10 @@ public class RadialTree
             }
         }
         // Use force-directed layout to space the nodes out nicely over the screen
-        ForceDirected(1000, 2, 1, 2);  // TODO: figure out numbers
+        ForceDirected(10000, 2.5f, 1, 2);
     }
 
     public void ForceDirected(int maxIterations, float cRep, float cSpring, float length) {
-        // for(int i = 0; i < nrOfNodes; i++) {
-        //     Debug.Log(i + " at " + p[i]);
-        // }
         Vector3[,] fRep = new Vector3[nrOfNodes,nrOfNodes];     // the repulsive force between all vertices
         Vector3[,] fSpring = new Vector3[nrOfNodes,nrOfNodes];  
         Vector3[,] fAttr = new Vector3[nrOfNodes, nrOfNodes];   // the attractive force between connected vertices
@@ -125,23 +132,13 @@ public class RadialTree
                     if (u != v) {
                         // Calculate a unit vector of the direction from v to u
                         Vector3 direction = (p[u] - p[v]).normalized;
-                        // Debug.Log(direction + " direction from " + u + " to " + v);
-                        // Calculate the repulsive force on u from v
                         float distance = Vector3.Distance(p[u], p[v]);
-                        // Debug.Log(distance + " distance from " + u + " to " + v);
-                        // if(distance == 0 && u != v) {
-                        //     Debug.Log(u + ": " + p[u] + " " + v + ": " + p[v]);
-                        // }
                         fRep[u,v] = cRep / Mathf.Pow(distance, 2) * direction;
-                        // Debug.Log(fRep[u,v] + " fRep from " + u + " to " + v);
-                        // Debug.Log(cRep / Mathf.Pow(distance, 2) + " cRep / dis^2 from " + u + " to " + v);
                         // Calculate the spring force on u from v
                         if (NeighborOf(v, u)) {
                             fSpring[u,v] = cSpring * Mathf.Log(distance / length) * -1 * direction;
-                            // Debug.Log(fSpring[u,v] + " (u - v) from " + u + " to " + v);  
                         } else {
                             fSpring[u,v] = fRep[u,v];
-                            // Debug.Log(fSpring[u,v] + " (u !- v) from " + u + " to " + v);   
                         }                        
                         // Calculate the attractive force on u from v
                         // Supposed to be 0 if they're not neighbors, which is why fSpring = fRep in that case
@@ -150,9 +147,14 @@ public class RadialTree
                     }                    
                 }
             }
-            // Change the positions based on the force
+            // Change the positions based on the force, but don't let it go offscreen
             for (int u = 0; u < nrOfNodes; u++) {
-                p[u] += Time.deltaTime * fU[u];
+                if (p[u].x + Time.deltaTime * fU[u].x > borders[0].x && p[u].x + Time.deltaTime * fU[u].x < borders[1].x) {
+                    p[u].x += Time.deltaTime * fU[u].x;
+                }
+                if (p[u].y + Time.deltaTime * fU[u].y < borders[0].y && p[u].y + Time.deltaTime * fU[u].y > borders[1].y) {
+                    p[u].y += Time.deltaTime * fU[u].y;
+                }
             }
             t++;
         }

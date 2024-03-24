@@ -17,47 +17,33 @@ public class LilypadController : MonoBehaviour
     private bool[] accessible;
     private bool[] visited;
     private int current;
+    private int target; // The node that was last clicked
     // Whether movement is currently allowed
     private bool allowedToMove;
     private LilypadCharacterScript character;
     private GameObject deathscreen;
     public UnityEvent restart;
+    public GameObject lilypadPrefab;    // the prefab from which lilypads are created
 
     // This function is called when the object becomes enabled and active.
     void Awake() {
         // Generate the graph of lilypads
-        graph = new RadialTree("somewhat random with adj", 3, nrOfLilypads, circleSize);
-        positions = graph.GetPositions();
-        adj = graph.GetAdj();
-        // for(int id = 0; id < positions.Count(); id++) {
-        //     Debug.Log( id + " at " + positions[id]);
-        // }
-        // Give the lineConnector the data it needs to draw the edges
-        LineConnector lineConnector = GetComponent<LineConnector>();
-        lineConnector.SetGraph(graph);
+        NewGraph("somewhat random with adj");
         accessible = new bool[nrOfLilypads];
         accessible[0] = true;
         character = FindObjectOfType<LilypadCharacterScript>();
-        character.SetInitialPosition(positions[0]);
+        character.SetInitialPosition(positions[graph.GetRoot()]);
     }
 
     // Start is called before the first frame update
     void Start() {
-        // adj = new List<int>[nrOfLilypads];
-        // adj[0] = new List<int> {1,2};
-        // adj[1] = new List<int> {0,3,4};
-        // adj[2] = new List<int> {0,5};
-        // adj[3] = new List<int> {1,6};
-        // adj[4] = new List<int> {1};
-        // adj[5] = new List<int> {2};
-        // adj[6] = new List<int> {3};
         visited = new bool[nrOfLilypads];
         current = 0;
         deathscreen = GameObject.Find("Canvas").transform.GetChild(2).gameObject;
         allowedToMove = true;
     }
     
-    // Returns the position of lilypad id
+    // Returns the position of lilypad @id
     public Vector3 GetPosition(int id) {
         return positions[id];
     }
@@ -74,7 +60,8 @@ public class LilypadController : MonoBehaviour
 
     // Moves the character to the target lilypad
     // If this is not a legal move, it sinks both the target and the character
-    public void MoveTo(int target) {    
+    public void MoveTo(int target) {
+        this.target = target;
         if (allowedToMove && !character.IsMoving()) {
             if (adj[current].Contains(target)) {
                 if (visited[target] == false || adj[current].Count == 1) {
@@ -114,22 +101,38 @@ public class LilypadController : MonoBehaviour
 
     // Called to reset the data to be able to start a new game
     public void Reset() {
-        // adj[0] = new List<int> {1,2};
-        // adj[1] = new List<int> {0,3,4};
-        // adj[2] = new List<int> {0,5};
-        // adj[3] = new List<int> {1,6};
-        // adj[4] = new List<int> {1};
-        // adj[5] = new List<int> {2};
-        // adj[6] = new List<int> {3};
-        adj = graph.GetAdj();
+        NewGraph("somewhat random with adj");
+        restart.Invoke();
         accessible = new bool[nrOfLilypads];
         accessible[0] = true;
         visited = new bool[nrOfLilypads];
         current = 0;
-        restart.Invoke();
-        character.Reset();
         deathscreen.SetActive(false);
+        character.SetInitialPosition(positions[graph.GetRoot()]);
+        character.Reset();
         allowedToMove = true;
+    }
+
+    // Called to make a new graph
+    public void NewGraph(string type) {
+        // Generate the graph of lilypads
+        graph = new RadialTree(type, 3, 9, circleSize);
+        positions = graph.GetPositions();
+        nrOfLilypads = graph.GetNrOfNodes();
+        for (int i = 0; i < nrOfLilypads; i++) {
+            GameObject lilypad = Instantiate(lilypadPrefab, positions[i], Quaternion.Euler(0, 0, Random.Range(0, 360)));
+            lilypad.GetComponent<LilypadScript>().SetId(i);
+        }
+        adj = graph.GetAdj();
+
+        // Give the lineConnector the data it needs to draw the edges
+        LineConnector lineConnector = GetComponent<LineConnector>();
+        lineConnector.SetGraph(graph);
+    }
+
+    // Returns which node is the current target
+    public int CurrentTarget() {
+        return target;
     }
 
     // Update is called once per frame
@@ -142,6 +145,4 @@ public class LilypadController : MonoBehaviour
     void FixedUpdate() {
 
     }
-
-
 }

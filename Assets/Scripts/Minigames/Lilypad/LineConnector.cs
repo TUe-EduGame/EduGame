@@ -14,6 +14,10 @@ public class LineConnector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+    }
+
+    // Draws the lines
+    public void Draw() {
         vertices = DFS(graph.GetRoot(), new List<Vector3>());
         lineRenderer = GetComponent<LineRenderer>();
         // Ensure that it draws a line between only 2 points
@@ -42,6 +46,7 @@ public class LineConnector : MonoBehaviour
         this.graph = graph;
         visited = new bool[graph.GetNrOfNodes()];
         positions = graph.GetPositions();
+        Draw();
     }
 
     // Returns a list of all start- and endpoints of edges in this graph

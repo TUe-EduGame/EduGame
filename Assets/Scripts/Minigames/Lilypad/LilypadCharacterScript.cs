@@ -9,7 +9,6 @@ public class LilypadCharacterScript : MonoBehaviour
     // Whether the character is currently moving
     private bool isMoving = false;
     // The position the character starts in
-    // [SerializeField] private float[] initialPosition = new float[3];
     private Vector3 initialPosition;
     [SerializeField] private float[] initialScale = new float[3];
 
