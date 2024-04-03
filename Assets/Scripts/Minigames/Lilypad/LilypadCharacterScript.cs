@@ -7,8 +7,10 @@ public class LilypadCharacterScript : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5.0f;
     [SerializeField] private float scaleSpeed = 5.0f;
+    // Whether the character is currently moving
+    private bool isMoving = false;
     // The position the character starts in
-    [SerializeField] private float[] initialPosition = new float[3];
+    private Vector3 initialPosition;
     [SerializeField] private float[] initialScale = new float[3];
 
     // This function is called when the object becomes enabled and active.
@@ -25,10 +27,8 @@ public class LilypadCharacterScript : MonoBehaviour
 
     // Called to reset the character to its original position
     public void Reset() {
-        // TODO
-        // transform.position = new Vector3(initialPosition[0], initialPosition[1], initialPosition[2]);
-        // transform.localScale = new Vector3(initialScale[0], initialScale[1], initialScale[2]);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        transform.position = new Vector3(initialPosition[0], initialPosition[1], initialPosition[2]);
+        transform.localScale = new Vector3(initialScale[0], initialScale[1], initialScale[2]);
     }
 
     // Update is called once per frame
@@ -44,12 +44,12 @@ public class LilypadCharacterScript : MonoBehaviour
 
     // Moves the object to the position targetPos
     public IEnumerator Move(Vector3 targetPos) {
-
+        isMoving = true;
         while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon) {
             transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
             yield return null;
         }
-
+        isMoving = false;
     }
 
     // Shrinks the object to the targetScale
@@ -60,6 +60,14 @@ public class LilypadCharacterScript : MonoBehaviour
             yield return null;
         }
 
+    }
+
+    public bool IsMoving() {
+        return isMoving;
+    }
+
+    public void SetInitialPosition(Vector3 position) {
+        initialPosition = position;
     }
 
 }

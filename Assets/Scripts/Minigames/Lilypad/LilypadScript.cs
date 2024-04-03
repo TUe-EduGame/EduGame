@@ -9,7 +9,8 @@ public class LilypadScript : MonoBehaviour
 {
     public float scaleSpeed = 5f;
     private LilypadController controller;
-    public int id;
+    private SpriteRenderer spriteRenderer;
+    [SerializeField] private int id;
 
     // Start is called before the first frame update
     void Start()
@@ -20,9 +21,9 @@ public class LilypadScript : MonoBehaviour
         transform.localScale = controller.GetScale();
     }
 
-    // Called to reset a lilypad to its original size
+    // Called to delete a lilypad when making a new graph
     public void Reset() {
-        transform.localScale = controller.GetScale();
+        Destroy(gameObject);
     }
 
     // Called when the object is clicked
@@ -44,15 +45,22 @@ public class LilypadScript : MonoBehaviour
     // Called when another GameObject collides with this one
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!controller.isAccessible(id))
-        {
-            StartCoroutine(Shrink(new Vector3(0.001f, 0.001f, 0.001f)));
-            controller.Lose();
-        } else {
-            if (controller.Finished()) {
-                controller.Win();
+        if (other.CompareTag("Player") && controller.CurrentTarget() == id) {
+            if (!controller.isAccessible(id))
+            {
+                StartCoroutine(Shrink(new Vector3(0.001f, 0.001f, 0.001f)));
+                controller.Lose();
+            } else {
+                if (controller.Finished()) {
+                    controller.Win();
+                }
             }
         }
+        
     }
 
+    // Set the id of this lilypad
+    public void SetId(int id) {
+        this.id = id;
+    }
 }
