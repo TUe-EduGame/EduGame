@@ -23,7 +23,7 @@ public class VertexController : MonoBehaviour
     {
         if(targetPos != transform.position) 
         {
-            controller.CounterUpdate();
+            controller.VertexCounterUpdate();
         }
         transform.position = Vector3.MoveTowards(transform.position, targetPos, Vector3.Distance(transform.position, targetPos));
     }

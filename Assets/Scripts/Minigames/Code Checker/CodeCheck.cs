@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 using System.Diagnostics;
-using UnityEngine.TextCore.Text;
 using System.Threading;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
@@ -41,15 +40,18 @@ public class CodeCheck : MonoBehaviour
 
     void GetFile()
     {
-        string filePath = EditorUtility.OpenFilePanel("Select the file you want to check", "", "c,cpp,py");
+        //TODO fix this
+        #if UNITY_EDITOR
+            string filePath = EditorUtility.OpenFilePanel("Select the file you want to check", "", "c,cpp,py");
 
-        UnityEngine.Debug.Log(filePath);
+            UnityEngine.Debug.Log(filePath);
 
-        if (filePath != null && filePath != "" && checkThread == null)
-        {
-            checkThread = new Thread(() => RunFile(filePath));
-            checkThread.Start();
-        }
+            if (filePath != null && filePath != "" && checkThread == null)
+            {
+                checkThread = new Thread(() => RunFile(filePath));
+                checkThread.Start();
+            }
+        #endif
     }
 
     void RunFile(string filePath)

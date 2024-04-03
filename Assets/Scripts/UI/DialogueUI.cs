@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DialogueUI : MonoBehaviour
 {
@@ -120,23 +121,30 @@ public class DialogueUI : MonoBehaviour
     public void Option1()
     {
         print("Option1");
+        //TODO
+        SceneManager.LoadScene("LilypadScene", LoadSceneMode.Single);
         CloseDialogue();
     }
 
     public void Option2()
     {
         print("Option2");
+        //TODO
+        SceneManager.LoadScene("PredictScene", LoadSceneMode.Single);
         CloseDialogue();
     }
 
     public void Option3()
     {
         print("Option3");
+        //TODO
+        SceneManager.LoadScene("BuildAGraphScene", LoadSceneMode.Single);
         CloseDialogue();
     }
 
     public void CloseDialogue()
     {
         gameObject.SetActive(false);
+        npc.EndDialogue();
     }
 }

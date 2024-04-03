@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class PlayerMovement : MonoBehaviour
+public class Player : MonoBehaviour
 {
     public float moveSpeed;
     public Vector2 PlayerInput;
@@ -11,32 +11,35 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask solidObjectsLayer;
     public LayerMask interactableLayer;
     private Vector3 targetPos = new Vector3(0.5f, 0.5f, 0);
+    private PlayerData playerData = new PlayerData();
 
     private Animator animator;
     private AudioSource audioSource;
 
-    [SerializeField] private AudioClip[] walkingSounds;
-
-    private Vector3 savedLocation = new Vector3(0.5f, 0.5f, 0);
+    [SerializeField]
+    private AudioClip[] walkingSounds;
 
     int soundClip = 0;
 
     private void Awake()
     {
+        playerData = new PlayerData();
         Load();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
-        transform.position = savedLocation;
     }
 
     public Tilemap obstacles;
 
+    bool isInteracting = false;
+
     //TODO: Move from here and make a proper class in the future
     void Save()
     {
-        savedLocation = transform.position;
-        string playerData = JsonUtility.ToJson(savedLocation);
-        System.IO.File.WriteAllText(Application.persistentDataPath + "/PlayerData.json", playerData);
+        playerData.savedLocation = transform.position;
+        playerData.savedRotation = transform.eulerAngles;
+        string jsonData = JsonUtility.ToJson(playerData);
+        System.IO.File.WriteAllText(Application.persistentDataPath + "/PlayerData.json", jsonData);
     }
 
     void Load()
@@ -44,9 +47,13 @@ public class PlayerMovement : MonoBehaviour
         if (System.IO.File.Exists(Application.persistentDataPath + "/PlayerData.json"))
         {
             string[] stream = System.IO.File.ReadAllLines(Application.persistentDataPath + "/PlayerData.json");
-            string playerData = string.Concat(stream);
-            savedLocation = JsonUtility.FromJson<Vector3>(playerData);
+            string jsonData = string.Concat(stream);
+            playerData = JsonUtility.FromJson<PlayerData>(jsonData);
+
         }
+
+        transform.position = playerData.savedLocation;
+        transform.eulerAngles = playerData.savedRotation;
     }
 
     void Start()
@@ -82,7 +89,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Interact();
+            if (!isInteracting)
+                Interact();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -90,6 +98,20 @@ public class PlayerMovement : MonoBehaviour
             //PauseMenu
         }
 
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            Save();
+        }
+
+        if (Input.GetKeyDown(KeyCode.F6))
+        {
+            Load();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Delete))
+        {
+            System.IO.File.Delete(Application.persistentDataPath + "/PlayerData.json");
+        }
     }
 
     void Interact()
@@ -100,13 +122,19 @@ public class PlayerMovement : MonoBehaviour
         // Debug.DrawLine(transform.position, interactPos, Color.red, 1f);
 
         var collider = Physics2D.OverlapCircle(interactPos, 0.2f, interactableLayer);
+
         if (collider != null)
         {
-            collider.GetComponent<Interactable>()?.Interact();
+            isInteracting = true;
+            collider.GetComponent<Interactable>()?.Interact(this);
+            Save();
         }
     }
 
-
+    public void StopInteract()
+    {
+        isInteracting = false;
+    }
 
     IEnumerator Move(Vector3 targetPos)
     {
@@ -141,4 +169,11 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(targetPos, 0.2f);
     }
+}
+
+[Serializable]
+public class PlayerData
+{
+    public Vector3 savedLocation = new Vector3(0.5f, 0.5f, 0);
+    public Vector3 savedRotation = new Vector3(0, 0, 0);
 }

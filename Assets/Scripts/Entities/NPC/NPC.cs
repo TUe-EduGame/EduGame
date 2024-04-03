@@ -1,14 +1,15 @@
-using System;
 using UnityEngine;
 
 public class NPC : Entity, Interactable
 {
-    public String nameNPC = "NPC";
+    public string nameNPC = "NPC";
     public Dialogue dialogue;
 
     public bool triggerDialogueOnStart = false;
     public bool dialogueStarted = false;
     public int progress = 0;
+
+    private Player player;
 
     // Start is called before the first frame update
     void Start()
@@ -35,5 +36,17 @@ public class NPC : Entity, Interactable
             dialogueUI.gameObject.SetActive(true);
             dialogueUI.StartDialogue(this);
         }
+    }
+
+    public void Interact(Player player)
+    {
+        this.player = player; 
+        Interact();
+    }
+
+    public void EndDialogue()
+    {
+        if(player != null)
+            player.StopInteract();
     }
 }
