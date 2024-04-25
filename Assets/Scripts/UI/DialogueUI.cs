@@ -94,6 +94,10 @@ public class DialogueUI : MonoBehaviour
 
         if (npc.progress == dialogue.lines.Length - 1)
         {
+            if (npc.hasSuccessor)
+            {
+                npc.successor.Activate();
+            }
             CloseDialogue();
             return;
         }
