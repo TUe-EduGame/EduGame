@@ -1,4 +1,9 @@
+using Unity.Mathematics;
+using UnityEditor.SceneManagement;
+using UnityEditor.SearchService;
+using UnityEditor.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NPC : Entity, Interactable
 {
@@ -12,11 +17,18 @@ public class NPC : Entity, Interactable
     public bool hasSuccessor = false;
     public NPC successor;
 
-    private Player player;
+    public bool changeScene = false;
+    public string nextScene;
+
+    public int stateNumber = 0;
+
+    public Player player;
 
     // Start is called before the first frame update
     void Start()
     {
+        
+
         if (triggerDialogueOnStart && !dialogueStarted)
         {
             DialogueUI dialogueUI = GameObject.Find("Canvas").transform.GetChild(0).GetComponentInChildren<DialogueUI>();
@@ -28,7 +40,7 @@ public class NPC : Entity, Interactable
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     public void Interact()
@@ -55,6 +67,21 @@ public class NPC : Entity, Interactable
 
     public void Activate() 
     {
-        gameObject.SetActive(true);
+        if (player.gameState >= stateNumber)
+        {
+            print(name + " should activate");
+            gameObject.SetActive(true);
+        }
+    }
+
+    public void UpdateGameState()
+    {
+        player.gameState = math.max(player.gameState, stateNumber + 1);
+        player.Save();
+    }
+
+    public void ChangeScene()
+    {
+        SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
     }
 }

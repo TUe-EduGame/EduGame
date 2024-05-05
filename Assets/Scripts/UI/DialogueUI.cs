@@ -92,16 +92,6 @@ public class DialogueUI : MonoBehaviour
     public void NextDialogue()
     {
 
-        if (npc.progress == dialogue.lines.Length - 1)
-        {
-            if (npc.hasSuccessor)
-            {
-                npc.successor.Activate();
-            }
-            CloseDialogue();
-            return;
-        }
-
         if (isTyping)
         {
             StopCoroutine(typingCoroutine);
@@ -109,7 +99,26 @@ public class DialogueUI : MonoBehaviour
             isTyping = false;
             return;
         }
+        else if (npc.progress == dialogue.lines.Length - 1)
+        {
+            if (npc.stateNumber >= 0)
+            {
+                npc.UpdateGameState();
+            }
+            if (npc.hasSuccessor)
+            {
+                npc.successor.Activate();
+            }
+            if (npc.changeScene)
+            {
+                npc.ChangeScene();
+            }
 
+            CloseDialogue();
+            return;
+        }
+
+        
         bool hasGraphic = dialogue.lines[npc.progress].hasGraphic;
 
         if (hasGraphic)
