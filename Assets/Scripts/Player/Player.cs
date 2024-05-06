@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public Vector2 PlayerInput;
     public bool isMoving;
     public LayerMask solidObjectsLayer;
+    public LayerMask waterLayer;
     public LayerMask interactableLayer;
     private Vector3 targetPos = new Vector3(0.5f, 0.5f, 0);
     private PlayerData playerData = new PlayerData();
@@ -156,7 +157,7 @@ public class Player : MonoBehaviour
 
     private bool IsWalkable(Vector3 targetPos)
     {
-        if (Physics2D.OverlapCircle(targetPos, 0.2f, solidObjectsLayer | interactableLayer) != null)
+        if (Physics2D.OverlapCircle(targetPos, 0.2f, solidObjectsLayer | interactableLayer | waterLayer) != null)
         {
             return false;
         }
