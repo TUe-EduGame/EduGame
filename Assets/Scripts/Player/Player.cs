@@ -5,8 +5,8 @@ using UnityEngine.Tilemaps;
 
 public class SaveData
 {
-    public Vector3 playerLocation;
-    public Vector3 playerRotation;
+    public Vector3 playerLocation = new Vector3(0.5f, 0.5f, 0);
+    public Vector3 playerRotation = new Vector3(0, 0, 0);
     public int gameState;
 }
 
@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     public Vector2 PlayerInput;
     public bool isMoving;
     public LayerMask solidObjectsLayer;
+    public LayerMask waterLayer;
     public LayerMask interactableLayer;
     private Vector3 targetPos = new Vector3(0.5f, 0.5f, 0);
     private PlayerData playerData = new PlayerData();
@@ -35,7 +36,6 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        playerData = new PlayerData();
         Load();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
@@ -45,30 +45,6 @@ public class Player : MonoBehaviour
 
     bool isInteracting = false;
 
-    //TODO: Move from here and make a proper class in the future
-/*
-    void Save()
-    {
-        playerData.savedLocation = transform.position;
-        playerData.savedRotation = transform.eulerAngles;
-        string jsonData = JsonUtility.ToJson(playerData);
-        System.IO.File.WriteAllText(Application.persistentDataPath + "/PlayerData.json", jsonData);
-    }
-
-    void Load()
-    {
-        if (System.IO.File.Exists(Application.persistentDataPath + "/PlayerData.json"))
-        {
-            string[] stream = System.IO.File.ReadAllLines(Application.persistentDataPath + "/PlayerData.json");
-            string jsonData = string.Concat(stream);
-            playerData = JsonUtility.FromJson<PlayerData>(jsonData);
-
-        }
-
-        transform.position = playerData.savedLocation;
-        transform.eulerAngles = playerData.savedRotation;
-    }
-*/
     public void Save()
     {
         saveData.playerLocation = transform.position;
@@ -199,7 +175,7 @@ public class Player : MonoBehaviour
 
     private bool IsWalkable(Vector3 targetPos)
     {
-        if (Physics2D.OverlapCircle(targetPos, 0.2f, solidObjectsLayer | interactableLayer) != null)
+        if (Physics2D.OverlapCircle(targetPos, 0.2f, solidObjectsLayer | interactableLayer | waterLayer) != null)
         {
             return false;
         }
