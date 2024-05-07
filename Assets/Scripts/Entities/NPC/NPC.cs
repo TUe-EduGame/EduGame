@@ -22,6 +22,8 @@ public class NPC : Entity, Interactable
 
     public int stateNumber = 0;
 
+    public bool appear = true;
+
     public Player player;
 
     // Start is called before the first frame update
@@ -70,7 +72,7 @@ public class NPC : Entity, Interactable
         if (player.gameState >= stateNumber)
         {
             print(name + " should activate");
-            gameObject.SetActive(true);
+            gameObject.SetActive(appear);
         }
     }
 

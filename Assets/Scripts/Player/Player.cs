@@ -7,7 +7,7 @@ public class SaveData
 {
     public Vector3 playerLocation = new Vector3(0.5f, 0.5f, 0);
     public Vector3 playerRotation = new Vector3(0, 0, 0);
-    public int gameState;
+    public int gameState = 0;
 }
 
 public class Player : MonoBehaviour
@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
 
     int soundClip = 0;
 
-    public int gameState = 1;
+    public int gameState = 0;
 
     public NPC[] npcs;
 
