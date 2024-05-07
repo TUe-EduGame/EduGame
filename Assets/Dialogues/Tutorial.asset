@@ -12,6 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dac38ed0d2236dc4982a36a95d5f36aa, type: 3}
   m_Name: Tutorial
   m_EditorClassIdentifier: 
-  lines: []
+  lines:
+  - text: Welcome to EduGame!
+    hasOptions: 0
+    options: []
+    hasGraphic: 0
+    graphic: {fileID: 0}
+  - text: You can press WASD or use the arrow keys to move around the world.
+    hasOptions: 0
+    options: []
+    hasGraphic: 0
+    graphic: {fileID: 0}
+  - text: To interact with objects or NPCs press E while standing near them.
+    hasOptions: 0
+    options: []
+    hasGraphic: 0
+    graphic: {fileID: 0}
+  - text: Have fun!
+    hasOptions: 0
+    options: []
+    hasGraphic: 0
+    graphic: {fileID: 0}
   nextDialogue: {fileID: 0}
   canExit: 0
