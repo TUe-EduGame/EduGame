@@ -4652,6 +4652,12 @@ MonoBehaviour:
   triggerDialogueOnStart: 1
   dialogueStarted: 0
   progress: 0
+  hasSuccessor: 0
+  successor: {fileID: 0}
+  changeScene: 0
+  nextScene: 
+  stateNumber: -10
+  player: {fileID: 0}
 --- !u!1 &641254604
 GameObject:
   m_ObjectHideFlags: 0
@@ -8487,6 +8493,12 @@ MonoBehaviour:
   triggerDialogueOnStart: 0
   dialogueStarted: 0
   progress: 0
+  hasSuccessor: 0
+  successor: {fileID: 0}
+  changeScene: 1
+  nextScene: Overworld
+  stateNumber: -10
+  player: {fileID: 0}
 --- !u!1 &1271447980
 GameObject:
   m_ObjectHideFlags: 0
@@ -8680,6 +8692,12 @@ MonoBehaviour:
   triggerDialogueOnStart: 0
   dialogueStarted: 0
   progress: 0
+  hasSuccessor: 0
+  successor: {fileID: 0}
+  changeScene: 0
+  nextScene: 
+  stateNumber: -10
+  player: {fileID: 0}
 --- !u!1 &1294538786
 GameObject:
   m_ObjectHideFlags: 0

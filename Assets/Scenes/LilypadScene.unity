@@ -1720,6 +1720,12 @@ MonoBehaviour:
   triggerDialogueOnStart: 1
   dialogueStarted: 0
   progress: 0
+  hasSuccessor: 0
+  successor: {fileID: 0}
+  changeScene: 0
+  nextScene: 
+  stateNumber: -10
+  player: {fileID: 0}
 --- !u!4 &1132634860
 Transform:
   m_ObjectHideFlags: 0
@@ -2918,6 +2924,12 @@ MonoBehaviour:
   triggerDialogueOnStart: 0
   dialogueStarted: 0
   progress: 0
+  hasSuccessor: 0
+  successor: {fileID: 0}
+  changeScene: 1
+  nextScene: Overworld
+  stateNumber: -10
+  player: {fileID: 0}
 --- !u!4 &1600254680
 Transform:
   m_ObjectHideFlags: 0
