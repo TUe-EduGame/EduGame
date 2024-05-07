@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 7d9d215c86694764292587d66b6005d3, type: 3}
-  m_Color: {r: 0.07127803, g: 0.5320754, b: 0.19241446, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -146,6 +146,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scaleSpeed: 5
   id: 0
+  emptyLilypad: {fileID: 21300000, guid: 7d9d215c86694764292587d66b6005d3, type: 3}
+  budLilypad: {fileID: 21300000, guid: e25fb0700e732444fa41fb7ceee8e1ca, type: 3}
+  bloomLilypad: {fileID: 21300000, guid: 480608b4296302f41844d70a83eee29f, type: 3}
 --- !u!50 &1456033742883469045
 Rigidbody2D:
   serializedVersion: 4

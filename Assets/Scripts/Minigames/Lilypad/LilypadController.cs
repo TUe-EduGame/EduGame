@@ -69,9 +69,6 @@ public class LilypadController : MonoBehaviour
                     accessible[current] = false;
                     adj[current].Remove(target);
                     visited[current] = true;
-                    if (!adj[current].Any()) {
-                        // maybe change the color?
-                    }
                     current = target;
                 }
             } else {
@@ -133,6 +130,16 @@ public class LilypadController : MonoBehaviour
     // Returns which node is the current target
     public int CurrentTarget() {
         return target;
+    }
+
+    public int GetSprite(int id) {
+        if (adj[id].Count < 1 && id != graph.GetRoot()) {
+            return 2;
+        } else if (adj[id].Count < graph.GetAdj()[id].Count) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     // Update is called once per frame

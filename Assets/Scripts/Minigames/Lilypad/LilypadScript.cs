@@ -11,6 +11,9 @@ public class LilypadScript : MonoBehaviour
     private LilypadController controller;
     private SpriteRenderer spriteRenderer;
     [SerializeField] private int id;
+    [SerializeField] private Sprite emptyLilypad;
+    [SerializeField] private Sprite budLilypad;
+    [SerializeField] private Sprite bloomLilypad;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +22,7 @@ public class LilypadScript : MonoBehaviour
         controller.restart.AddListener(Reset);
         transform.position = controller.GetPosition(id);
         transform.localScale = controller.GetScale();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Called to delete a lilypad when making a new graph
@@ -53,14 +57,34 @@ public class LilypadScript : MonoBehaviour
             } else {
                 if (controller.Finished()) {
                     controller.Win();
+                    ChangeSprite(2);
+                } else {
+                    ChangeSprite(1);
                 }
             }
         }
         
     }
 
+    // Called when another Gameobject leaves this one
+    private void OnTriggerExit2D(Collider2D other) {
+        ChangeSprite(controller.GetSprite(id));
+    }
+
     // Set the id of this lilypad
     public void SetId(int id) {
         this.id = id;
+    }
+
+    // Sets the sprite of this lilypad
+    public void ChangeSprite(int sprite) {
+        if (sprite == 2) {
+            spriteRenderer.sprite = bloomLilypad;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        } else {
+            spriteRenderer.sprite = budLilypad;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        
     }
 }

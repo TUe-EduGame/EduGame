@@ -1575,6 +1575,7 @@ MonoBehaviour:
   - {fileID: 1534752024}
   - {fileID: 1879590702}
   - {fileID: 944078117}
+  - {fileID: 926474074}
   obstacles: {fileID: 951344021}
 --- !u!95 &293907914
 Animator:
@@ -31881,16 +31882,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameNPC: Druid
   dialogue: {fileID: 11400000, guid: 01b7c4e62c6ea21418cc3b7a32cf6ab4, type: 2}
-  triggerDialogueOnStart: 0
+  triggerDialogueOnStart: 1
   dialogueStarted: 0
   progress: 0
   hasSuccessor: 0
   successor: {fileID: 0}
   changeScene: 0
   nextScene: 
-  stateNumber: 0
-  appear: 1
-  player: {fileID: 0}
+  stateNumber: 1
+  appear: 0
+  player: {fileID: 293907913}
 --- !u!61 &926474075
 BoxCollider2D:
   m_ObjectHideFlags: 0
