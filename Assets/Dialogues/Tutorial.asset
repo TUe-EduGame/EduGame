@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Tutorial
   m_EditorClassIdentifier: 
   lines:
-  - text: Welcome to EduGame!
+  - text: Found yourself stuck in the woods with no memory, huh? Strange. I'll explain
+      what you have to do to find a potion master that can fix you.
     hasOptions: 0
     options: []
     hasGraphic: 0
@@ -23,12 +24,12 @@ MonoBehaviour:
     options: []
     hasGraphic: 0
     graphic: {fileID: 0}
-  - text: To interact with objects or NPCs press E while standing near them.
+  - text: To interact with objects or people, press E while standing near them.
     hasOptions: 0
     options: []
     hasGraphic: 0
     graphic: {fileID: 0}
-  - text: Have fun!
+  - text: Good luck!
     hasOptions: 0
     options: []
     hasGraphic: 0

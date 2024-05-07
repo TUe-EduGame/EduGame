@@ -22,7 +22,7 @@ public class NPC : Entity, Interactable
 
     public int stateNumber = 0;
 
-    public bool appear = true;
+    public bool appear = false;
 
     public Player player;
 
