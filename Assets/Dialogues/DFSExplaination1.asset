@@ -13,7 +13,13 @@ MonoBehaviour:
   m_Name: DFSExplaination1
   m_EditorClassIdentifier: 
   lines:
-  - text: 'If you want to explore a graph, you can use DFS. '
+  - text: My lilypads aren't blooming! Please help me before you cross the bridge!
+    hasOptions: 0
+    options: []
+    hasGraphic: 0
+    graphic: {fileID: 0}
+  - text: The lilypads form a graph and will only bloom if you explore them using
+      DFS.
     hasOptions: 0
     options: []
     hasGraphic: 0
@@ -159,7 +165,7 @@ MonoBehaviour:
     options: []
     hasGraphic: 1
     graphic: {fileID: 21300000, guid: 1c8f2c6467d7352419ac5f46be65de5a, type: 3}
-  - text: 'To test your understanding of DFS, try the next game. '
+  - text: To test your understanding of DFS, let my lilypads bloom using DFS
     hasOptions: 0
     options: []
     hasGraphic: 0

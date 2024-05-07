@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: GraphExplaination
   m_EditorClassIdentifier: 
   lines:
+  - text: You're looking for the potion master? I have a magical map! Allow me to
+      explain how these maps work.
+    hasOptions: 0
+    options: []
+    hasGraphic: 0
+    graphic: {fileID: 0}
   - text: 'Many programming problems require you to work with graphs. '
     hasOptions: 0
     options: []
@@ -94,7 +100,8 @@ MonoBehaviour:
     options: []
     hasGraphic: 1
     graphic: {fileID: 21300000, guid: 0aebfa111ded8474297024af818860ee, type: 3}
-  - text: 'Now try yourself to trun this map into a graph. '
+  - text: 'Now try yourself to trun this map into a graph and I''ll give you the
+      map to your potion master. '
     hasOptions: 0
     options: []
     hasGraphic: 0

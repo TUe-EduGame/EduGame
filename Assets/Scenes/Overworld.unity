@@ -792,10 +792,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameNPC: Potion master
-  dialogue: {fileID: 11400000, guid: f8f82ed2793596e43b53eb4ebc803208, type: 2}
+  dialogue: {fileID: 11400000, guid: 8056ed159cd9c3849a7b3f042a4490b8, type: 2}
   triggerDialogueOnStart: 0
   dialogueStarted: 0
   progress: 0
+  hasSuccessor: 0
+  successor: {fileID: 0}
+  changeScene: 0
+  nextScene: 
+  stateNumber: 0
+  player: {fileID: 0}
 --- !u!61 &265562249
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1192,6 +1198,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 13cb08d57279ca24bbd0009eef8bcc69, type: 3}
   - {fileID: 8300000, guid: 9756ba2b88e54654e9603baa670a6a7b, type: 3}
   - {fileID: 8300000, guid: babe00de42fc5b04db1957bd81ecf7a9, type: 3}
+  gameState: 1
+  npcs: []
   obstacles: {fileID: 951344021}
 --- !u!95 &293907914
 Animator:
@@ -1481,11 +1489,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39c17f7cce2fcc54f91e6c854a6e1f26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameNPC: Mentor
+  nameNPC: Cartographer
   dialogue: {fileID: 11400000, guid: 43da9d876bd6448478460ce4f1304283, type: 2}
   triggerDialogueOnStart: 0
   dialogueStarted: 0
   progress: 0
+  hasSuccessor: 0
+  successor: {fileID: 0}
+  changeScene: 0
+  nextScene: 
+  stateNumber: 0
+  player: {fileID: 0}
 --- !u!1 &345021427
 GameObject:
   m_ObjectHideFlags: 0
@@ -31024,11 +31038,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39c17f7cce2fcc54f91e6c854a6e1f26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameNPC: Mentor
+  nameNPC: Lily
   dialogue: {fileID: 11400000, guid: f8f82ed2793596e43b53eb4ebc803208, type: 2}
   triggerDialogueOnStart: 0
   dialogueStarted: 0
   progress: 0
+  hasSuccessor: 0
+  successor: {fileID: 0}
+  changeScene: 0
+  nextScene: 
+  stateNumber: 0
+  player: {fileID: 0}
 --- !u!61 &693358315
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -38855,11 +38875,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39c17f7cce2fcc54f91e6c854a6e1f26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameNPC: Mentor
-  dialogue: {fileID: 11400000, guid: f8f82ed2793596e43b53eb4ebc803208, type: 2}
+  nameNPC: Fred
+  dialogue: {fileID: 11400000, guid: bc9cfa7a284088240974cd5125b73e3b, type: 2}
   triggerDialogueOnStart: 0
   dialogueStarted: 0
   progress: 0
+  hasSuccessor: 0
+  successor: {fileID: 0}
+  changeScene: 0
+  nextScene: 
+  stateNumber: 0
+  player: {fileID: 0}
 --- !u!61 &1534752025
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -55980,6 +56006,12 @@ MonoBehaviour:
   triggerDialogueOnStart: 0
   dialogueStarted: 0
   progress: 0
+  hasSuccessor: 0
+  successor: {fileID: 0}
+  changeScene: 0
+  nextScene: 
+  stateNumber: 0
+  player: {fileID: 0}
 --- !u!61 &1943746478
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: DFSExplaination2
   m_EditorClassIdentifier: 
   lines:
+  - text: 'Careful! There''s a monster in this maze! It''s a DFS: a Dumb Fiendish
+      Stalker.'
+    hasOptions: 0
+    options: []
+    hasGraphic: 0
+    graphic: {fileID: 0}
   - text: 'You can also use DFS to find a path from one vertex to any another vertex
       in a graph. '
     hasOptions: 0
@@ -165,6 +171,11 @@ MonoBehaviour:
     graphic: {fileID: 21300000, guid: 9f1f857f589dbdb469bb76a273a43351, type: 3}
   - text: 'If you only need to find one path, like the path from S to T, you can
       stop DFS once you find the goal vertex T. '
+    hasOptions: 0
+    options: []
+    hasGraphic: 0
+    graphic: {fileID: 0}
+  - text: Now please slay the monster in the maze!
     hasOptions: 0
     options: []
     hasGraphic: 0

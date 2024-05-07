@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: DFSPseudoCode
   m_EditorClassIdentifier: 
   lines:
-  - text: Now that you know how DFS works, it is time to get to know the pseudocode.
+  - text: You know how DFS works? Great! Then you can craft the potion you need by
+      learning the recipe, also called pseudocode.
     hasOptions: 0
     options: []
     hasGraphic: 0
@@ -65,8 +66,8 @@ MonoBehaviour:
     options: []
     hasGraphic: 1
     graphic: {fileID: 21300000, guid: 741d4fefc783b5044adfcd1c38b9e221, type: 3}
-  - text: 'Now that you have seen the pseudo code of DFS, it is time to test your
-      understanding.  '
+  - text: Now that you have seen the pseudo code of DFS, it is time to craft your
+      potion!
     hasOptions: 0
     options: []
     hasGraphic: 0
