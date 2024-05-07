@@ -3,6 +3,13 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+public class SaveData
+{
+    public Vector3 playerLocation = new Vector3(0.5f, 0.5f, 0);
+    public Vector3 playerRotation = new Vector3(0, 0, 0);
+    public int gameState;
+}
+
 public class Player : MonoBehaviour
 {
     public float moveSpeed;
@@ -13,6 +20,7 @@ public class Player : MonoBehaviour
     public LayerMask interactableLayer;
     private Vector3 targetPos = new Vector3(0.5f, 0.5f, 0);
     private PlayerData playerData = new PlayerData();
+    private SaveData saveData = new SaveData();
 
     private Animator animator;
     private AudioSource audioSource;
@@ -22,9 +30,12 @@ public class Player : MonoBehaviour
 
     int soundClip = 0;
 
+    public int gameState = 1;
+
+    public NPC[] npcs;
+
     private void Awake()
     {
-        playerData = new PlayerData();
         Load();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
@@ -34,12 +45,12 @@ public class Player : MonoBehaviour
 
     bool isInteracting = false;
 
-    //TODO: Move from here and make a proper class in the future
-    void Save()
+    public void Save()
     {
-        playerData.savedLocation = transform.position;
-        playerData.savedRotation = transform.eulerAngles;
-        string jsonData = JsonUtility.ToJson(playerData);
+        saveData.playerLocation = transform.position;
+        saveData.playerRotation = transform.eulerAngles;
+        saveData.gameState = gameState;
+        string jsonData = JsonUtility.ToJson(saveData);
         System.IO.File.WriteAllText(Application.persistentDataPath + "/PlayerData.json", jsonData);
     }
 
@@ -49,13 +60,20 @@ public class Player : MonoBehaviour
         {
             string[] stream = System.IO.File.ReadAllLines(Application.persistentDataPath + "/PlayerData.json");
             string jsonData = string.Concat(stream);
-            playerData = JsonUtility.FromJson<PlayerData>(jsonData);
+            saveData = JsonUtility.FromJson<SaveData>(jsonData);
 
         }
 
-        transform.position = playerData.savedLocation;
-        transform.eulerAngles = playerData.savedRotation;
+        transform.position = saveData.playerLocation;
+        transform.eulerAngles = saveData.playerRotation;
+        gameState = saveData.gameState;
+
+        foreach (NPC npc in npcs) 
+        {
+            npc.Activate();
+        }
     }
+
 
     void Start()
     {
