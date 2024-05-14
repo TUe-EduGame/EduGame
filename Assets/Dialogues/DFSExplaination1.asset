@@ -30,7 +30,7 @@ MonoBehaviour:
     options: []
     hasGraphic: 0
     graphic: {fileID: 0}
-  - text: 'Lets consider this graph to see how DFS works. '
+  - text: 'Let''s consider this graph to see how DFS works. '
     hasOptions: 0
     options: []
     hasGraphic: 1
@@ -86,7 +86,7 @@ MonoBehaviour:
     options: []
     hasGraphic: 1
     graphic: {fileID: 21300000, guid: fc6227d7b7c0a204ab0fa201747a6d35, type: 3}
-  - text: 'But we have not yet explored the entire graph, as S still has unexplored
+  - text: 'But we have not yet explored the entire graph, as S still has an unexplored
       neighbor B. '
     hasOptions: 0
     options: []
@@ -165,10 +165,10 @@ MonoBehaviour:
     options: []
     hasGraphic: 1
     graphic: {fileID: 21300000, guid: 1c8f2c6467d7352419ac5f46be65de5a, type: 3}
-  - text: To test your understanding of DFS, let my lilypads bloom using DFS
+  - text: To test your understanding of DFS, let my lilypads bloom using DFS.
     hasOptions: 0
     options: []
     hasGraphic: 0
     graphic: {fileID: 0}
   nextDialogue: {fileID: 0}
-  canExit: 0
+  canExit: 1
