@@ -73,7 +73,7 @@ public class DialogueUI : MonoBehaviour
             dialogueField.text += letter;
             audioSource.pitch = 0.6f;
             audioSource.PlayOneShot(buttonClick, 0.5f);
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.03f);
         }
         isTyping = false;
     }

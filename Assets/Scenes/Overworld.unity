@@ -166,6 +166,7 @@ MonoBehaviour:
   nextScene: 
   stateNumber: 1
   appear: 0
+  changeState: 1
   player: {fileID: 293907913}
 --- !u!61 &93527149
 BoxCollider2D:
@@ -424,6 +425,7 @@ MonoBehaviour:
   nextScene: 
   stateNumber: 1
   appear: 0
+  changeState: 1
   player: {fileID: 293907913}
 --- !u!61 &150853851
 BoxCollider2D:
@@ -1168,6 +1170,7 @@ MonoBehaviour:
   nextScene: 
   stateNumber: 0
   appear: 1
+  changeState: 1
   player: {fileID: 0}
 --- !u!61 &265562249
 BoxCollider2D:
@@ -1877,6 +1880,7 @@ MonoBehaviour:
   nextScene: BuildAGraphScene
   stateNumber: 0
   appear: 1
+  changeState: 1
   player: {fileID: 293907913}
 --- !u!95 &298677460
 Animator:
@@ -3389,6 +3393,7 @@ MonoBehaviour:
   nextScene: 
   stateNumber: 2
   appear: 1
+  changeState: 1
   player: {fileID: 293907913}
 --- !u!1 &640257678
 GameObject:
@@ -31474,6 +31479,7 @@ MonoBehaviour:
   nextScene: LilypadScene
   stateNumber: 1
   appear: 1
+  changeState: 1
   player: {fileID: 293907913}
 --- !u!61 &693358315
 BoxCollider2D:
@@ -31891,6 +31897,7 @@ MonoBehaviour:
   nextScene: 
   stateNumber: 1
   appear: 0
+  changeState: 0
   player: {fileID: 293907913}
 --- !u!61 &926474075
 BoxCollider2D:
@@ -32095,6 +32102,7 @@ MonoBehaviour:
   nextScene: 
   stateNumber: 3
   appear: 0
+  changeState: 1
   player: {fileID: 293907913}
 --- !u!61 &944078118
 BoxCollider2D:
@@ -39722,6 +39730,7 @@ MonoBehaviour:
   nextScene: PredictScene
   stateNumber: 2
   appear: 1
+  changeState: 1
   player: {fileID: 293907913}
 --- !u!61 &1534752025
 BoxCollider2D:
@@ -40337,6 +40346,7 @@ MonoBehaviour:
   nextScene: 
   stateNumber: 2
   appear: 0
+  changeState: 1
   player: {fileID: 293907913}
 --- !u!61 &1879590703
 BoxCollider2D:
@@ -57053,6 +57063,7 @@ MonoBehaviour:
   nextScene: 
   stateNumber: 0
   appear: 1
+  changeState: 1
   player: {fileID: 0}
 --- !u!61 &1943746478
 BoxCollider2D:
