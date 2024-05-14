@@ -1,7 +1,4 @@
 using Unity.Mathematics;
-using UnityEditor.SceneManagement;
-using UnityEditor.SearchService;
-using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,6 +18,8 @@ public class NPC : Entity, Interactable
     public string nextScene;
 
     public int stateNumber = 0;
+
+    public bool appear = false;
 
     public Player player;
 
@@ -70,7 +69,7 @@ public class NPC : Entity, Interactable
         if (player.gameState >= stateNumber)
         {
             print(name + " should activate");
-            gameObject.SetActive(true);
+            gameObject.SetActive(appear);
         }
     }
 

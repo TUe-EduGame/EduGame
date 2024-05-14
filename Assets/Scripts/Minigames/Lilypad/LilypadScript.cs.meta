@@ -3,7 +3,10 @@ guid: b866861d786f1724eb11864f928132c1
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - emptyLilypad: {fileID: 21300000, guid: 7d9d215c86694764292587d66b6005d3, type: 3}
+  - budLilypad: {instanceID: 0}
+  - bloomLilypad: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

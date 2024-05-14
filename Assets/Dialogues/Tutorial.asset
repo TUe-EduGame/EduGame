@@ -12,6 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dac38ed0d2236dc4982a36a95d5f36aa, type: 3}
   m_Name: Tutorial
   m_EditorClassIdentifier: 
-  lines: []
+  lines:
+  - text: Found yourself stuck in the woods with no memory, huh? Strange. I'll explain
+      what you have to do to find a potion master that can fix you.
+    hasOptions: 0
+    options: []
+    hasGraphic: 0
+    graphic: {fileID: 0}
+  - text: You can press WASD or use the arrow keys to move around the world.
+    hasOptions: 0
+    options: []
+    hasGraphic: 0
+    graphic: {fileID: 0}
+  - text: To interact with objects or people, press E while standing near them.
+    hasOptions: 0
+    options: []
+    hasGraphic: 0
+    graphic: {fileID: 0}
+  - text: Good luck!
+    hasOptions: 0
+    options: []
+    hasGraphic: 0
+    graphic: {fileID: 0}
   nextDialogue: {fileID: 0}
   canExit: 0

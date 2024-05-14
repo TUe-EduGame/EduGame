@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dac38ed0d2236dc4982a36a95d5f36aa, type: 3}
-  m_Name: PredictEndDialogue 1
+  m_Name: TempFinish
   m_EditorClassIdentifier: 
   lines:
-  - text: Wow, thanks!
+  - text: I must say, I'm impressed. I don't see someone beat DFS every day. Take
+      one of these potions as a reward, they should fix your memory.
     hasOptions: 0
-    options:
-    - text: 
-      nextDialogue: {fileID: 0}
-    - text: 
-      nextDialogue: {fileID: 0}
-    - text: 
-      nextDialogue: {fileID: 0}
+    options: []
     hasGraphic: 0
-    graphic: {fileID: 0}
+    graphic: {fileID: 21300000, guid: f915df458967a214fa3132cf21402285, type: 3}
+  - text: Thanks for playing!
+    hasOptions: 0
+    options: []
+    hasGraphic: 0
+    graphic: {fileID: 21300000, guid: f915df458967a214fa3132cf21402285, type: 3}
   nextDialogue: {fileID: 0}
   canExit: 0
