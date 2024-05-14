@@ -117,7 +117,7 @@ public class LilypadController : MonoBehaviour
         positions = graph.GetPositions();
         nrOfLilypads = graph.GetNrOfNodes();
         for (int i = 0; i < nrOfLilypads; i++) {
-            GameObject lilypad = Instantiate(lilypadPrefab, positions[i], Quaternion.Euler(0, 0, Random.Range(0, 360)));
+            GameObject lilypad = Instantiate(lilypadPrefab, positions[i], Quaternion.Euler(0, 0, 180));
             lilypad.GetComponent<LilypadScript>().SetId(i);
         }
         adj = graph.GetAdj();
