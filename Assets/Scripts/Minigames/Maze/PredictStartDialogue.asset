@@ -22,6 +22,8 @@ MonoBehaviour:
       nextDialogue: {fileID: 0}
     - text: 
       nextDialogue: {fileID: 0}
+    hasGraphic: 0
+    graphic: {fileID: 0}
   - text: It walks through the maze using DFS.
     hasOptions: 0
     options:
@@ -31,6 +33,8 @@ MonoBehaviour:
       nextDialogue: {fileID: 0}
     - text: 
       nextDialogue: {fileID: 0}
+    hasGraphic: 0
+    graphic: {fileID: 0}
   - text: Since you can predict its moves, try to shoot it before it comes back!
     hasOptions: 0
     options:
@@ -40,5 +44,7 @@ MonoBehaviour:
       nextDialogue: {fileID: 0}
     - text: Bad
       nextDialogue: {fileID: 0}
+    hasGraphic: 0
+    graphic: {fileID: 0}
   nextDialogue: {fileID: 0}
-  canExit: 1
+  canExit: 0
