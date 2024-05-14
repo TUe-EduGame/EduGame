@@ -20,6 +20,7 @@ public class NPC : Entity, Interactable
     public int stateNumber = 0;
 
     public bool appear = false;
+    public bool changeState = true;
 
     public Player player;
 
@@ -46,6 +47,7 @@ public class NPC : Entity, Interactable
     {
         if (!dialogueStarted)
         {
+            progress = 0;
             DialogueUI dialogueUI = GameObject.Find("Canvas").transform.GetChild(0).GetComponentInChildren<DialogueUI>();
             dialogueUI.gameObject.SetActive(true);
             dialogueUI.StartDialogue(this);
@@ -75,8 +77,12 @@ public class NPC : Entity, Interactable
 
     public void UpdateGameState()
     {
-        player.gameState = math.max(player.gameState, stateNumber + 1);
-        player.Save();
+        if(changeState)
+        {
+            player.gameState = math.max(player.gameState, stateNumber + 1);
+            player.Save();
+        }
+        
     }
 
     public void ChangeScene()

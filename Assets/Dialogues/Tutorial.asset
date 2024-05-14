@@ -29,6 +29,11 @@ MonoBehaviour:
     options: []
     hasGraphic: 0
     graphic: {fileID: 0}
+  - text: 'To speed up the text, click the next button while someone is talking. '
+    hasOptions: 0
+    options: []
+    hasGraphic: 0
+    graphic: {fileID: 0}
   - text: Good luck!
     hasOptions: 0
     options: []

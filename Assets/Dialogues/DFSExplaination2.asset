@@ -19,7 +19,7 @@ MonoBehaviour:
     options: []
     hasGraphic: 0
     graphic: {fileID: 0}
-  - text: 'You can also use DFS to find a path from one vertex to any another vertex
+  - text: 'You can also use DFS to find a path from one vertex to any other vertex
       in a graph. '
     hasOptions: 0
     options: []
@@ -181,4 +181,4 @@ MonoBehaviour:
     hasGraphic: 0
     graphic: {fileID: 0}
   nextDialogue: {fileID: 0}
-  canExit: 0
+  canExit: 1

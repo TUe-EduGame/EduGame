@@ -24,7 +24,8 @@ MonoBehaviour:
     options: []
     hasGraphic: 0
     graphic: {fileID: 0}
-  - text: A graph is a datastructure that can represent many different networks like
+  - text: A graph is a data structure that can represent many different networks
+      like
     hasOptions: 0
     options: []
     hasGraphic: 0
@@ -60,7 +61,7 @@ MonoBehaviour:
     options: []
     hasGraphic: 0
     graphic: {fileID: 0}
-  - text: We can turn this map this map into a graph,
+  - text: We can turn this map into a graph,
     hasOptions: 0
     options: []
     hasGraphic: 1
@@ -100,11 +101,11 @@ MonoBehaviour:
     options: []
     hasGraphic: 1
     graphic: {fileID: 21300000, guid: 0aebfa111ded8474297024af818860ee, type: 3}
-  - text: 'Now try yourself to trun this map into a graph and I''ll give you the
+  - text: 'Now try yourself to turn this map into a graph and I''ll give you the
       map to your potion master. '
     hasOptions: 0
     options: []
     hasGraphic: 0
     graphic: {fileID: 0}
   nextDialogue: {fileID: 0}
-  canExit: 0
+  canExit: 1
