@@ -36,7 +36,20 @@ MonoBehaviour:
       nextDialogue: {fileID: 0}
     hasGraphic: 0
     graphic: {fileID: 0}
-  - text: When it pauses, you should shoot the square where it's going to be next!
+  - text: When it pauses, you should shoot the first square it's going to move into.
+      That way, you'll hit it when it's vulnerable.
+    hasOptions: 0
+    options:
+    - text: Good
+      nextDialogue: {fileID: 0}
+    - text: Ok
+      nextDialogue: {fileID: 0}
+    - text: Bad
+      nextDialogue: {fileID: 0}
+    hasGraphic: 0
+    graphic: {fileID: 0}
+  - text: 'Don''t miss too often: if it returns back to the start alive, it will
+      turn into an even scarier monster!'
     hasOptions: 0
     options:
     - text: Good
