@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: PredictStartDialogue
   m_EditorClassIdentifier: 
   lines:
-  - text: 'This is a DFS: a Dumb Fiendish Stalker.'
+  - text: 'This is a DFS: a Dumb Fiendish Stalker. It is only vulnerable when it
+      just started moving.'
     hasOptions: 0
     options:
     - text: 
@@ -24,7 +25,7 @@ MonoBehaviour:
       nextDialogue: {fileID: 0}
     hasGraphic: 0
     graphic: {fileID: 0}
-  - text: It walks through the maze using DFS.
+  - text: It walks through the maze using DFS, a couple steps at a time.
     hasOptions: 0
     options:
     - text: 
@@ -35,7 +36,20 @@ MonoBehaviour:
       nextDialogue: {fileID: 0}
     hasGraphic: 0
     graphic: {fileID: 0}
-  - text: Since you can predict its moves, try to shoot it before it comes back!
+  - text: When it pauses, you should shoot the first square it's going to move into
+      by clicking it. That way, you'll hit it when it's vulnerable.
+    hasOptions: 0
+    options:
+    - text: Good
+      nextDialogue: {fileID: 0}
+    - text: Ok
+      nextDialogue: {fileID: 0}
+    - text: Bad
+      nextDialogue: {fileID: 0}
+    hasGraphic: 0
+    graphic: {fileID: 0}
+  - text: 'Don''t miss too often: if it returns back to the start alive, it will
+      turn into an even scarier monster!'
     hasOptions: 0
     options:
     - text: Good
