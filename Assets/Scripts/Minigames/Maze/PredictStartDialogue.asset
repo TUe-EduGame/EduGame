@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PredictStartDialogue
   m_EditorClassIdentifier: 
   lines:
-  - text: 'This is a DFS: a Dumb Fiendish Stalker. It is only vulnerable when it''s
-      moving.'
+  - text: 'This is a DFS: a Dumb Fiendish Stalker. It is only vulnerable when it
+      just started moving.'
     hasOptions: 0
     options:
     - text: 
@@ -36,8 +36,8 @@ MonoBehaviour:
       nextDialogue: {fileID: 0}
     hasGraphic: 0
     graphic: {fileID: 0}
-  - text: When it pauses, you should shoot the first square it's going to move into.
-      That way, you'll hit it when it's vulnerable.
+  - text: When it pauses, you should shoot the first square it's going to move into
+      by clicking it. That way, you'll hit it when it's vulnerable.
     hasOptions: 0
     options:
     - text: Good
